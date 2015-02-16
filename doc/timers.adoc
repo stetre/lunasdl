@@ -1,0 +1,70 @@
+
+== Timers
+
+SDL agents can create and manage timers using the functions described here.
+
+'''
+[[sdl.timer]]
+* *sdl.timer* ( _duration_, _signame_ ) +
+-> _tid_ +
+ +
+Creates an SDL timer and returns a unique *timer identifier (tid)* to be used in 
+subsequent operations. The timer is _owned_ by the agent that created it.
+Timer functions can be invoked on a specific timer only by its owner agent or
+by <<_procedures, procedures>> that act on its behalf. +
+ +
+The _duration_ parameter is the timer's default timeout in seconds, and the
+_signame_ parameter (a string) is the name of the SDL signal sent by LunaSDL to the
+owner agent when the timer expires.
+
+NOTE: A timer can be created by an agent only before the execution of its start 
+transition. Timers can not be created in state transitions, including the start
+transition, nor within procedures. Procedures can, however, use timers owned by
+their calling agent.
+
+'''
+[[sdl.modify]]
+* *sdl.modify* ( _tid_, _duration_ [, _signame_ ] ) +
+ +
+Modifies the default duration and/or the signal name of the timer identified by _tid_
+(to modify only the signal name, _nil_ must be passed explicitly as argument for _duration_). +
+ +
+The _duration_ and _signame_ parameters have the same meaning as for the 
+<<sdl.timer,_sdl.timer_>> function above. +
+ +
+If the timer is active, this function also resets (stops) it.
+
+'''
+[[sdl.set]]
+* *sdl.set* ( _tid_ [, _at_ ] ) +
+-> _now_ +
+ +
+Sets (starts) the timer identified by _tid_ so to expire at the point in <<_system_time, time>>
+given by _at_, and returns the current time. +
+ +
+The _at_ parameter is optional and defaults to <<sdl.now,_sdl.now()_>> _+ duration_,
+where _duration_ is the default duration specified for the timer. +
+ +
+When the timer expires, an SDL signal is sent to the owner agent. Such signal contains
+only the signal name specified when the timer was created or later modified.
+
+'''
+[[sdl.reset]]
+* *sdl.reset* ( _tid_ ) +
+-> _now_ +
+ +
+Resets (stops) the timer identified by _tid_ and returns the current <<_system_time,time>>. 
+If the timer is not active, _sdl.reset_ has no effect and generates no errors.
+
+'''
+[[sdl.active]]
+* *sdl.active* ( _tid_ ) +
+-> _isactive_, _at_ +
+ +
+Returns information about the status of the timer identified by _tid_. The return
+values are: _isactive_, a boolean indicating whether the timer is active or not, and
+_at_, which is the point in <<_system_time, time>> at which the timer is expected to
+expire (if the timer is not active, then Lua's 
+http://www.lua.org/manual/5.3/manual.html#pdf-math.huge[_math.huge_] is returned as _at_).
+
+<<<

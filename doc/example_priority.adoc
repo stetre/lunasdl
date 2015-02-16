@@ -1,0 +1,24 @@
+
+=== Priority signals
+
+:exampledir: {examplesdir}/priority
+
+This example uses priority signals. The main script
+<<sdl.prioritylevels, configures the number of priority levels>> to 3
+(LunaSDL by default has only 1 level of priority, plus the _no priority_ level),
+and then creates the system agent, which sends a few signals with different
+priorities to itself. Just to see their order of arrival.
+
+The scripts for this example are in `examples/priority/`.
+
+[source,lua]
+----
+include::{exampledir}/main.lua[]
+----
+
+[source,lua]
+----
+include::{exampledir}/system.lua[]
+----
+
+<<<

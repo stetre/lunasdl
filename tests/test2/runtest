@@ -1,0 +1,2 @@
+#           ntests baseport timeout repetitions
+lua main.lua   0      8080      10         10

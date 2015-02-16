@@ -1,0 +1,4 @@
+# lunasdl .gitignore
+
+*.log
+local/

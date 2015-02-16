@@ -1,0 +1,44 @@
+
+=== Ping Pong
+
+:exampledir: {examplesdir}/pingpong
+
+In this example, the `main.lua` script creates the system agent with the `system.lua` script. 
+The system agent then creates two processes with the same agent script, `player.lua`, and
+sends a `START` signal to one of them instructing it to start pinging the other, which in
+turns pongs in response.
+The system agent also sets a timer to control the duration of the ping-pong exchange,
+and at the timer expiry it sends a `STOP` signal to both processes and stops itself.
+
+The scripts for this example are in `examples/pingpong/`. Run the example at
+the shell prompt with:
+
+[source,shell]
+----
+[examples/pingpong ]$ lua main.lua
+----
+
+(You can also pass the test duration and the ping interval as arguments, in this order).
+
+[source,lua]
+----
+include::{exampledir}/main.lua[]
+----
+
+.System agent
+image::{exampledir}/system.png[]
+
+[source,lua]
+----
+include::{exampledir}/system.lua[]
+----
+
+.Player agent
+image::{exampledir}/player.png[]
+
+[source,lua]
+----
+include::{exampledir}/player.lua[]
+----
+
+<<<

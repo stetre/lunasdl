@@ -1,0 +1,191 @@
+
+== Agent scripts
+
+An agent script defines the behavior of an agent in terms of a state machine, whose
+transitions are triggered by the arrival of input <<_signals, signals>>.
+It may look like in the example shown below, in which the bottom part defines the
+transitions of the state machine, associating Lua functions to combinations of states
+and input signals names, and the top part implements those Lua functions.
+
+.Agent script (incomplete) example:
+[source,lua,indent=1]
+----
+-- agent.lua
+
+local T = sdl.timer(30,"T_EXPIRED")
+local somevariable = 0
+
+function Start()
+  -- .. 'start transition' here ..
+  sdl.nextstate("Waiting")
+end
+
+function Waiting_ConReq()
+  -- ... transition: received CONREQ signal in Waiting state ...
+  sdl.send({ "CONACK" }, sender_)
+  sdl.set(T)
+  sdl.nextstate("Connecting")
+end	
+
+function Connecting_TExpired()
+  -- ... transition: received T_EXPIRED signal in Connecting state ...
+  sdl.send({ "FAILURE" }, parent_)
+  sdl.stop()
+end	
+
+-- ... cut ...
+
+-- the state machine:
+sdl.start(Start) -- sets the 'start transition
+--             state, input signal, transition function
+sdl.transition("Waiting","CONREQ",Waiting_ConReq)
+sdl.transition("Connecting","CONCNF",Connecting_ConCnf)
+sdl.transition("Connecting","T_EXPIRED",Connecting_TExpired)
+sdl.transition("Connected","DATA",Connected_Data)
+sdl.transition("Any","STOP",Any_Stop)
+sdl.default("Any") -- the default state ('asterisk state')
+
+----
+
+=== State machine functions
+
+In order to define state machines, LunaSDL provides the functions described hereafter.
+More details can be found in the subsections that follow.
+
+'''
+[[sdl.start]]
+* *sdl.start* ( _func_ ) +
+ +
+Sets the function _func_ as the agent's _start transition_.
+
+'''
+[[sdl.transition]]
+* *sdl.transition* ( _state_, _signame_, _func_ ) +
+ +
+Sets the function _func_ as the transition to be executed when a signal named _signame_
+(a string) arrives with the agent being in the _state_ state (also, a string). +
+[[asterisktransition]] +
+The value '`*`' (asterisk) may be passed as argument for the _signame_ parameter,
+meaning _'any signal name for which an explicit transition has not been set for this state'_.
+
+'''
+[[sdl.default]]
+* *sdl.default* ( _state_ ) +
+ +
+Sets _state_ (a string) as the agent's default state. The default state is optional,
+and can be used to define transitions for signals which are not catched
+with <<sdl.transition,_sdl.transition_>> in the state the agent is in when they arrive.
+
+'''
+[[sdl.nextstate]]
+* *sdl.nextstate* ( _state_ ) +
+ +
+To be used within transitions, changes the current state of the agent to _state_. +
+ +
+If the state actually changes, i.e. if the agent was not already in that state,
+this function also re-schedules any input signal previously saved with <<sdl.save, _sdl.save_>>.
+Otherwise calling this function is superfluous but harmless.
+
+'''
+[[sdl.stop]]
+* *sdl.stop* ( [ _atstopfunc_ ] ) +
+ +
+To be used within transitions, gracefully stops the agent's state machine and determines
+the termination of the agent itself. +
+ +
+The optional _atstopfunc_ argument (a function) is a finalizer to be called
+when the agent actually terminates.
+
+'''
+[[sdl.kill]]
+* *sdl.kill* ( [ _pid_ ] ) +
+ +
+To be used within transitions, ungracefully terminates the agent identified by _pid_
+and all its descendants, without passing through the _stopping condition_.
+The calling agent must be an ascendant of the agent to be killed, or the agent itself.
+The _pid_ argument defaults to *_$$self_$$_*.
+
+
+=== Transitions
+
+A *transition* is a function implemented in the agent script, set by means of the above
+functions as the code to be executed at the arrival of an input signal (or, in the case
+of the start transition, at the creation of the agent).
+
+When executed, a transition performs some task depending on the input signal and
+on the state the agent is in (e.g., it may process input data, set <<_timers, timers>>,
+send output <<_signals, signals>>, and possibly change the agent's state), and then it returns.
+
+To return (and as soon as possible) is the main requirement for a transition,
+because the concurrency model of SDL is
+http://en.wikipedia.org/wiki/Computer_multitasking#Cooperative_multitasking[_cooperative_]:
+a transition must not be blocking, that is, it must not contain infinite loops or calls to
+blocking functions. 
+
+Each agent has a dedicated http://www.lua.org/manual/5.3/manual.html#2.2[Lua environment]
+where the agent script and the transitions are executed, so global functions and variables of
+an agent do not collide with those of other agents (they are _global_ only in its dedicated
+environment).
+
+=== The start transition
+
+The *start transition* is the first transition of the agent's state machine and is
+automatically executed right after the agent has been created.
+
+When an agent is created, LunaSDL first initializes its dedicated Lua environment, then
+it loads and executes the agent script, and finally it calls the start transition function
+that was set by the script with <<sdl.start, _sdl.start_>>. 
+The function receives as arguments those (if any) that were in turn passed to the 
+<<_creating_agents, create function>> in its variable arguments part.
+
+The start transition must contain a <<sdl.nextstate, _sdl.nextstate_>> call to set the
+first state entered by the agent, or end with a <<sdl.stop, _sdl.stop_>> call to terminate
+the agent without entering any state.
+
+Once the start transition is executed, the control returns to the parent agent. The newly
+created agent will then be awakened again whenever an input <<_signals, signal>> addressed
+to it is dispatched by the event loop, causing the execution of the proper transition
+which is determined as described below.
+
+=== Receiving input signals
+
+When an input <<_signals, signal>> is dispatched to an agent, LunaSDL determines the
+transition triggered by it, then it executes it in the agent's dedicated Lua environment.
+
+Assuming the signal name is _signame_, and the agent's current state is _state_,
+the triggered transition is the first found by LunaSDL in the list that follows and
+in the exposed order:
+
+. the <<sdl.transition,transition>> explicitly defined in _state_ for _signame_, or
+. the <<asterisktransition,_asterisk_ transition>> defined in _state_, or
+. the transition explicitly defined in the <<sdl.default,default state>> for _signame_, or
+. the _asterisk_ transition defined in the default state, or
+. the _empty transition_, which implicitly consumes the signal by doing nothing
+and leaving the agent in the state it was before the arrival of the signal. 
+
+The signal contents and other relevant information such as the sender's pid are
+passed to the agent by means of some <<_special_variables, special variables>> that are
+properly set by LunaSDL before executing the transition (the special variables are
+those prescribed by the http://www.itu.int/rec/T-REC-Z/en[SDL standards], with a few
+additions).
+
+=== Stopping an agent
+
+A <<sdl.stop, _sdl.stop_>> call in a transition causes the end of the agent's state
+machine and puts the agent in a *stopping condition* which preludes its termination.
+
+The agent remains in the stopping condition until all its children have terminated,
+then it terminates too. While in the stopping condition, it will not receive any input
+signal (its state machine has ended), but it will remain available for
+<<_remote_functions, remote functions >> calls.
+
+If an _atstopfunc_ finalizer is passed when invoking <<sdl.stop, _sdl.stop_>>, it is
+executed right before the agent actually terminates and after all his children have terminated.
+
+If the stopping agent is the system agent, its termination causes also the termination
+of the <<eventloop, event loop >> and the return from the
+<<sdl.createsystem, _sdl.createsystem_>> function call. Notice that this happens when the
+system agent actually terminates, i.e. when all its descendants have already terminated
+(and thus it is the last agent left in the system).
+
+<<<

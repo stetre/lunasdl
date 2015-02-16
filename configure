@@ -1,0 +1,35 @@
+# This shell script adds the path to lunasdl.lua to the LUA_PATH 
+# environment variable, so that Lua's require() can find it.
+# It also adds the path to the examples to LUNASDL_PATH, so that the
+# sdl.create() functions can find the examples' agent scripts.
+#
+# The script must be executed in the LunaSDL base directory, e.g.
+# [lunasdl-0.1] $ . configure
+#
+# To avoid executing it manually in every shell, you may want to copy it
+# in your ~/.bash_profile (or ~/.profile or whatever) and change the 
+# LUNASDL_BASE variable so to point to where the LunaSDL base directory
+# is located on your system.
+#
+# If you write LunaSDL applications, you may also want to add the path
+# to your agents scripts to LUNASDL_PATH in the same way as this script
+# does for the examples.
+
+
+# Base directory of LunaSDL 
+LUNASDL_BASE="$PWD" 
+
+# Add the path to LunaSDL to LUA_PATH.
+SDL_PATH="$LUNASDL_BASE/?.lua;;"
+case :$LUA_PATH: in
+ *$SDL_PATH*) ;; # already in
+ *) export LUA_PATH=$LUA_PATH$SDL_PATH;;
+esac
+
+# Add the path(s) where lunasdl.lua searches for agents' scripts:
+AGENTS_PATH="$LUNASDL_BASE/examples/?.lua;;"
+case :$LUNASDL_PATH: in
+ *$AGENTS_PATH*) ;; # already in
+ *) export LUNASDL_PATH=$LUNASDL_PATH$AGENTS_PATH;;
+esac
+

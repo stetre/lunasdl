@@ -1,0 +1,34 @@
+
+=== Hello World
+
+:exampledir: {examplesdir}/helloworld
+
+The first example is, of course, the traditional Hello World. Just to make
+things a little more interesting, the salute is given with a delay of 1 second.
+
+The `main.lua` script loads the LunaSDL module, then creates the system agent with
+the `hello.lua` script. The latter implements the agent depicted in the diagram
+below.
+
+The scripts for this example are in `examples/helloworld/`. The example
+can be run at the shell prompt with:
+
+[source,shell]
+----
+[examples/helloworld ]$ lua main.lua
+----
+
+.Hello agent
+image::{exampledir}/hello.png[Hello agent]
+
+[source,lua]
+----
+include::{exampledir}/main.lua[]
+----
+
+[source,lua]
+----
+include::{exampledir}/hello.lua[]
+----
+
+<<<

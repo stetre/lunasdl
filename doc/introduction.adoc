@@ -1,0 +1,130 @@
+
+== Introduction
+
+This manual describes the functions provided by LunaSDL.
+It is assumed that the reader is familiar with the
+http://www.lua.org[Lua programming language]. Familiarity with SDL may be of help,
+but is not essential to read this document.footnote:[
+This manual is written in
+http://www.methods.co.nz/asciidoc/[AsciiDoc], rendered with
+http://asciidoctor.org/[AsciiDoctor] and a CSS from the
+https://github.com/asciidoctor/asciidoctor-stylesheet-factory[AsciiDoctor Stylesheet Factory].
+The PDF version is produced with
+https://github.com/asciidoctor/asciidoctor-pdf[AsciiDoctor-Pdf].
+The SDL diagrams are made with the
+http://www.yworks.com/en/products/yfiles/yed/[yED Graph Editor]
+and a custom palette of SDL symbols made with
+https://inkscape.org/en/[Inkscape].]
+footnote:[
+Introductive papers to SDL, a bit outdated but still very good, can be found
+in the http://www.telenor.com/innovation/telektronikk/[Telektronikk journal], 
+_Volume 4.2000 "Languages for Telecommunication Applications"_, Ed: Rolv Bræk.)]
+
+=== What is LunaSDL
+
+LunaSDL is a *Lua module for event-driven concurrent programming*, whose design follows the
+concurrency model of the
+*http://en.wikipedia.org/wiki/Specification_and_Description_Language[ITU-T Specification and
+Description Language (SDL)]*. 
+
+LunaSDL turns Lua into an SDL dialect by extending it with the basic constructs for the
+implementation of SDL systems, which are systems composed of concurrent, reactive and
+intercommunicating entities referred to as *agents*.footnote:[
+LunaSDL is to be considered an _SDL dialect_ in that it slightly deviates from
+the http://www.itu.int/rec/T-REC-Z/en[SDL standards] and has some simplifications:
+it uses an all-to-all pid-based communication model, with a single signal queue instead of
+per-agent input queues (although one could argue that the per-agent queues ar just merged
+but still distinguishable by the destination pid...);
+it has no explicit definitions of channels and gates;
+in LunaSDL any agent (not only the system agent) may communicate with the environment;
+it uses Lua data types and has no built-in support for ADT and ASN.1;
+it has additional non-SDL constructs like priority outputs, time-triggered signals and remote
+synchronous functions with immediate return.]
+
+What LunaSDL is not. It is not an editor or a validator of SDL specifications, and it is
+not a code generator from SDL specifications (it may, however, be used as target language
+for tools that do such things). Moreover, LunaSDL is not intended for parallel multithreading
+and multi-core programming, nor for hard real-time applications.
+
+=== Getting and installing
+
+The *official repository* of LunaSDL is on GitHub at the following link:
+*https://github.com/stetre/lunasdl* .
+
+LunaSDL requires *http://www.lua.org[Lua]* version 5.2 or greater, 
+and *https://github.com/diegonehab/luasocket[LuaSocket]*.
+
+Since it is written in plain Lua, no compiling is needed.
+
+LunaSDL has been tested on Linux (Fedora 21) and on OpenBSD (5.6). It may run
+on any other OS supported by Lua and LuaSocket, but this has not been tested.
+
+To install LunaSDL, download the 
+https://github.com/stetre/lunasdl/releases[latest release] and extract it somewhere
+on your system.
+
+To use LunaSDL, make sure that the base directory containing the `lunasdl.lua` script
+is in Lua's
+http://www.lua.org/manual/5.3/manual.html#pdf-package.path[_package.path_] (for this
+purpose, there is an example `configure` shell script in the base directory.)
+
+For example, on a GNU/Linux system, you may do this:
+
+[source,shell]
+----
+# ... download lunasdl-0.1.tar.gz ...
+[ ]$ tar -zxpvf lunasdl-0.1.tar.gz
+[ ]$ cd lunasdl-0.1
+[lunasdl-0.1]$ . configure
+----
+
+Or, using wget:
+
+[source,shell]
+----
+[ ]$ wget https://github.com/stetre/lunasdl/archive/v0.1.tar.gz
+[ ]$ tar -zxpvf v0.1.tar.gz
+[ ]$ cd lunasdl-0.1
+[lunasdl-0.1]$ . configure
+----
+
+Some basic examples can be found in the `examples/` directory and are described
+in the <<_examples, Examples>> section of this manual.
+
+Common to all examples, and to LunaSDL applications in general, is the need to properly
+set the `LUNASDL_PATH` environment variable so that LunaSDL can find the scripts used by
+the application. For more details, see the 
+<<_finding_agent_scripts, Finding agent scripts>> section.
+
+=== Module organization
+
+The LunaSDL module is loaded using Lua's 
+http://www.lua.org/manual/5.3/manual.html#pdf-require[_require_] function and
+returns a table containing the functions it provides 
+(as usual with Lua modules). This manual assumes that such
+table is named *_sdl_*, i.e. that it is loaded with:
+
+[source,lua,indent=1]
+----
+sdl = require("lunasdl")
+----
+
+but nothing forbids the use of a different name.
+
+As explained later in the manual, LunaSDL creates multiple Lua environments, one per
+SDL agent. All these environments share the same *_sdl_* table. In each agent's environment,
+LunaSDL defines also some special global variables that it uses to share information
+with the agent, and some other special variables for internal use (mostly packed in another
+table named *_$$sdl_$$_*). To avoid conflicts with user-defined identifiers, a minimal
+naming convention is used. See the <<_special_variables, Special variables>> section
+for more details.
+
+=== License
+
+LunaSDL is released under the *MIT/X11 license* (same as
+http://www.lua.org/license.html[Lua], and with the same only requirement to give proper
+credits to the original author). 
+The copyright notice is in the LICENSE file in the base directory
+of the https://github.com/stetre/lunasdl[official repository] on GitHub.
+
+<<<

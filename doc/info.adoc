@@ -1,0 +1,85 @@
+
+== Agent information
+
+The functions described below provide information about SDL agents and help
+agents in locating each other.
+
+For those functions accepting an optional _pid_ parameter, this defaults to *_$$self_$$_*
+(i.e. to the pid of the agent invoking the function).
+
+On error, for example if the agent searched for does not exist, all these functions
+return _nil_ and an error message in the typical Lua way (notice that this means
+that they do not call Lua's http://www.lua.org/manual/5.3/manual.html#pdf-error[_error_]
+function, as most of other LunaSDL functions do, so the caller should check the return value).
+
+'''
+[[sdl.pidof]]
+* *sdl.pidof* ( _name_ [, _block_ ]) +
+-> _pid_ +
+ +
+Searches for the SDL agent named _name_ (a string) in the SDL block identified
+by the pid _block_, and returns its pid. The _block_ parameter is optional and defaults
+to *_$$block_$$_* (i.e. to the pid of the block the invoking agent is contained in).
+
+'''
+[[sdl.nameof]]
+* *sdl.nameof* ( [ _pid_ ] ) +
+-> _name_ +
+ +
+Returns the name of the agent identified by _pid_.
+
+'''
+[[sdl.blockof]]
+* *sdl.blockof* ( [ _pid_ ] ) +
+-> _block_ +
+ +
+Returns the pid of the block containing the agent identified by _pid_.
+
+'''
+[[sdl.parentof]]
+* *sdl.parentof* ( [ _pid_ ] ) +
+-> _ppid_ +
+ +
+Returns the pid of the parent of the agent identified by _pid_.
+
+'''
+[[sdl.kindof]]
+* *sdl.kindof* ( [ _pid_ ] ) +
+-> _kind_ +
+ +
+Returns the SDL _kind_ of the agent identified by _pid_. 
+The returned value (a string) is one amongst _"system"_, _"block"_, _"process"_ or _"procedure"_.
+
+NOTE: A <<_procedures, procedure>> is not really an SDL agent, but in LunaSDL it
+is implemented as a special kind of agent so it is also identified by a pid and has
+a name.
+
+'''
+[[sdl.stateof]]
+* *sdl.stateof* ( [ _pid_ ] ) +
+-> _state_ +
+ +
+Returns the current state (a string) of the agent identified by _pid_.
+
+'''
+[[sdl.childrenof]]
+* *sdl.childrenof* ( [ _pid_ ] ) +
+-> _childrenlist_ +
+ +
+Returns the pids of the children created by the agent identified by _pid_.
+
+'''
+[[sdl.timersof]]
+* *sdl.timersof* ( [ _pid_ ] ) +
+-> _timerslist_ +
+ +
+Returns the tids of the timers owned by the agent identified by _pid_.
+
+'''
+[[sdl.treeof]]
+* *sdl.treeof* ( [ _pid_ ] ) +
+ +
+Returns a string containing a description of the sub-<<_agents_hierarchy, tree of agents>>
+rooted at the agent identified by _pid_.
+
+<<<

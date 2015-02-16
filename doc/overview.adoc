@@ -1,0 +1,92 @@
+
+== Overview
+
+=== LunaSDL applications
+
+A *LunaSDL application* is any application written in Lua that relies on LunaSDL to
+implement a system of concurrent, reactive and intercommunicating entities.
+In the SDL jargon, and thus in LunaSDL, such entities are called *agents*.
+You can think of them as of cooperative threads of execution, akin to Lua's
+native http://www.lua.org/manual/5.3/manual.html#2.6[coroutines].
+
+In its most natural form, a LunaSDL application is composed of:
+
+* a <<_the_main_script, *main script*>>, that loads and configures the LunaSDL module,
+creates the first agent, and then enters an event loop, and
+
+* one or more <<_agent_scripts, *agent scripts*>>, each of them defining the behavior
+of an agent (more precisely, of a _type_ of agent).
+
+Agents are created with the functions of the <<_creating_agents, _sdl.create family_>>,
+and each of them has its script executed in a dedicated 
+http://www.lua.org/manual/5.3/manual.html#2.2[Lua environment], which provides
+separation of its namespace from those of other agents running in the same application.
+
+=== Communication
+
+Agents communicate mainly by sending <<_signals, *signals*>> to each other, and may create
+and set <<_timers, *timers*>>, whose expiries are also notified to agents by means of signals.
+
+Agents may also communicate with the outside world with respect to the system (i.e. the
+_environment_
+footnote:[In SDL, the outside world with respect to a system is called the _environment_.
+Not to be confused with the _Lua environment_.]) 
+by means of <<_the_event_loop, *file descriptor objects*>> like, for example, sockets.
+Multiple file descriptor objects can be used concurrently.
+
+=== Reactivity and concurrency
+
+Agent scripts define the behavior of agents in terms of state machines, whose transitions
+are triggered by events represented by the reception of signals.
+
+[[eventloop]]
+The interleaved execution of agents is controlled by an 
+<<_the_event_loop, *event loop*>>
+that dispatches signals one at a time. 
+
+Every time the event loop dispatches a signal, the agent which is the destination of the
+signal becomes the *current agent*, executes some code depending on its state and on the
+signal, and then returns to the event loop (the model of concurrency is _cooperative_).
+The event loop then dispatches the next signal, if any is scheduled, otherwise it waits
+for stimuli, which may be the expiry of timers or file descriptors that have become ready
+for read or write operations.
+
+=== Agents hierarchy
+
+With the exception of the first agent, which is created at startup, every agent in a LunaSDL
+application is created by another already existing agent, and is linked to it in a _child-parent_
+relationship. Thus, agents are naturally organized in a hierarchical tree, whose root is
+the first agent and is called the *system agent*.
+
+There are three _kinds_ of agents: *system*, *block* and *process*. 
+Only one agent (the first created) is of the kind _system_, while the others may be of the
+kinds _block_ or _process_, the difference between the two being that a _block_ represents a
+container of agents (with an associated domain name) while a _process_ does not.
+
+Every SDL agent is also directly contained in an SDL agent of the kind _block_ or
+in the _system agent_ (which is also a block, although a special one).
+The block an agent is contained in is its parent, if this is a block, or the same block
+the parent is contained in, otherwise.
+
+NOTE: Conventionally, the system agent's parent is itself, and it is contained in itself.
+
+=== Agents identification
+
+[[pid]]
+Agents are identified by their *process identifier (pid)*, which is unique within a
+LunaSDL application. The pid is an integer value automatically assigned to an agent at
+its creation, and is used as address when sending signals. The pid value _0 (zero)_  always
+identifies the system agent.
+
+[[agent_name]]
+Each agent is also assigned, by its parent, an *agent name* (a string) which is required
+to be unique within the block the agent is contained in, but may be reused in different blocks.
+
+The agent name may encode information such as the agent's '`type`' and '`instance`' (but this
+is up to the application designer) and provides a convenient way to identify agents in reusable
+agent scripts without relying on the pid values being always the same from application to
+application (which is generally not true, being pids dynamically assigned).
+
+Functions are provided to <<_agent_information, resolve agent names into pids>> and viceversa.
+
+<<<

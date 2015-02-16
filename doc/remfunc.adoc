@@ -1,0 +1,39 @@
+
+== Remote functions
+
+Remote functions are Lua functions defined in the environment of an
+agent (the _exporting agent_) that can be invoked by another agent (the _invoking agent_).
+
+When the invoking agent calls a remote function, LunaSDL switches to the exporting
+agent's environment, it executes the function there, and then it switches back to the
+invoking agent's environment returning it any value returned by the function. That is,
+the remote function is executed synchronously and immediately.
+
+NOTE: This is a non-SDL construct, not to be confused with SDL _remote procedures_
+(see ITU-T Z.102/10.5) that have a different mechanism involving exchange of signals.
+
+The remote function mechanism relies on the following two functions.
+
+'''
+[[sdl.exportfunc]]
+* *sdl.exportfunc* ( _funcname_, [ _func_ ] ) +
+ +
+Exports the function _func_ with the name _funcname_ (a string), so that it can be invoked
+by other agents using <<sdl.remfunc, _sdl.remfunc_>>. +
+ +
+Calling _sdl.exportfunc_ without the _func_ argument revokes the function.
+
+'''
+[[sdl.remfunc]]
+* *sdl.remfunc* ( _pid_, _funcname_, _..._ ) +
+-> _returnvalues_ +
+ +
+Executes the function exported with the name _funcname_ in the environment of the
+exporting agent identified by _pid_, and returns the function's return values (if any).
+The _..._ variable arguments, if any, are passed as arguments to the remote function. +
+ +
+The invoked function must have been previously exported with 
+<<sdl.exportfunc, _sdl.exportfunc_>> by the exporting agent.
+
+<<<
+

@@ -1,0 +1,24 @@
+== Examples
+
+This section describes the examples that are contained in the `examples/` directory
+of the official LunaSDL release.
+
+Some of them are accompanied with SDL diagrams, which are for illustratory
+purposes only.
+
+
+include::example_helloworld.adoc[]
+
+include::example_pingpong.adoc[]
+
+include::example_udppingpong.adoc[]
+
+include::example_webdownload.adoc[]
+
+include::example_database.adoc[]
+
+include::example_priority.adoc[]
+
+include::example_procedure.adoc[]
+
+

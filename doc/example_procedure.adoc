@@ -1,0 +1,40 @@
+
+=== Procedure call
+
+:exampledir: {examplesdir}/procedure
+
+This example shows a <<_procedures, procedure call>> and. It also uses
+<<_time_triggered_signals, time-triggered signals>>.
+
+The system agent creates a _caller agent_ with the `caller.lua` script and then sends
+some signals to it. The caller agent calls the procedure defined in the `procedure.lua`
+script. While the procedure is executing, all signals sent to the caller agent by the system agent
+are redirected to the procedure, which <<sdl.save, saves>> them.
+When the procedure returns, all the signals saved by it are automatically moved in the caller
+agent's _saved queue_. The caller <<sdl.restore,restores>> and receives them, and then it
+receives other signals newly sent to it by the system agent.
+
+The scripts for this example are in `examples/procedure/`.
+
+_(The lyrics in the code are from a catchy song by Matt Bianco and Basia.)_
+
+[source,lua]
+----
+include::{exampledir}/main.lua[]
+----
+
+[source,lua]
+----
+include::{exampledir}/system.lua[]
+----
+
+[source,lua]
+----
+include::{exampledir}/caller.lua[]
+----
+
+[source,lua]
+----
+include::{exampledir}/procedure.lua[]
+----
+<<<

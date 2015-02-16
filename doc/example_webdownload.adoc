@@ -1,0 +1,36 @@
+
+=== Web pages download
+
+:exampledir: {examplesdir}/webdownload
+
+This example is a LunaSDL version of the Lua coroutines example from chapter 9 of 
+Roberto Ierusalimschy's http://www.lua.org/pil/["Programming in Lua"] (a must-read).
+
+The `download.lua` agent script defines an agent that connects to the HTTP port of
+an host and downloads a file. The system agent creates four such agents - one for
+each desired web page - which _concurrently_ download the files.
+
+As in the PIL example, the files are not saved anywhere and the application just 
+counts the downloaded bytes.
+
+The scripts for this example are in `examples/webdownload/`. Run the example
+with... well.. you'll figure out.
+
+_(No fancy diagrams here. They would not be very interesting.)_
+
+[source,lua]
+----
+include::{exampledir}/main.lua[]
+----
+
+[source,lua]
+----
+include::{exampledir}/system.lua[]
+----
+
+[source,lua]
+----
+include::{exampledir}/download.lua[]
+----
+
+<<<

@@ -1,0 +1,90 @@
+
+== Optional configurations
+
+The functions below allow to optionally configure some aspects of LunaSDL. 
+If they are used, they must be called before the creation of the system agent
+(see the <<_the_main_script, main script example>>).
+
+'''
+[[sdl.envtemplate]]
+* *sdl.envtemplate* ( _env_ ) +
+ +
+Sets the template http://www.lua.org/manual/5.3/manual.html#2.2[Lua environment]
+for environments dedicated to agents. +
+ +
+The *_sdl_* global table, containing the functions described in this manual, is
+automatically loaded in each agent's dedicated environment, so it need not be
+loaded explicitly in agent scripts (unless a different name is desired for it). +
+ +
+If this function is not called, the template environment is a shallow copy
+of the main environment (_$$_ENV$$_) at the time the <<sdl.createsystem,_sdl.createsystem_>>
+function is called.
+
+'''
+[[sdl.pollfuncs]]
+* *sdl.pollfuncs* ( _poll_, [, _add_ [, _del_ [, _reset_ ]]]) +
+ +
+Sets the function to be used by the <<_the_event_loop, event loop>> to
+poll for stimuli, and its helper hooks. +
+ +
+The passed _poll_ function must have the same semantics of 
+https://github.com/diegonehab/luasocket[LuaSocket]'s _select_, which is used by
+default if _sdl.pollfuncs_ is not invoked. It may support different objects
+than LuaSocket's sockets, but they must have a _settimeout_ method accepting a
+_0_ timeout to make them non-blocking, and a _$$__tostring$$_ metamethod. +
+ +
+If the optional _add_ argument (a function) is passed, LunaSDL calls `add(object, mode)`
+whenever an object is <<sdl.register,registered>> in the event loop. 
+Similarly, if the optional _del_ argument (also a function) is passed, then LunaSDL
+calls `del(object, mode)` whenever an object is <<sdl.register,deregistered>> from the
+event loop. +
+ +
+The _mode_ argument passed to the _add_ and _del_ hooks has the same meaning and values
+as in the <<sdl.deregister, _sdl.deregister_>> function. +
+ +
+Both the _add_ and _del_ hook are expected to return _true_ on success, or _nil_ and
+a string error message on failure. +
+ +
+If the optional _reset_ argument (also a function) is passed, LunaSDL calls
+`reset()` whenever it starts or re-starts the event loop. 
+
+NOTE: By means of the _add_ and _del_ hooks, the underlying implementation of the
+_poll_ function can mantain internally the two sets of file descriptor objects to
+be polled, and avoid traversing the sets passed to it as arguments each time it is
+called (which it can simply ignore). The _reset_ hook is expected to delete the
+internally mantained sets.
+
+'''
+[[sdl.prioritylevels]]
+* *sdl.prioritylevels* ( [ _levels_ ] ) +
+ +
+Configures the number of priority levels to be used in the LunaSDL scheduler
+for <<sdl.send, priority signals>>. +
+ +
+The _levels_ argument must be an integer _>=1_. If this function is not called,
+the number of priority levels defaults to _1_ (so, by default, there is one level
+of priority plus the no-priority level).
+
+
+'''
+[[sdl.setwallclock]]
+* *sdl.setwallclock* ( [ _gettimefunc_ ] ) +
+ +
+Sets the function to be used by LunaSDL to get timestamps from the underlying
+operating system, and resets the <<_system_time,_SDL system time_>> wallclock. +
+ +
+The _gettimefunc_ argument is expected to be a function that, whenever called,
+returns a _double_ representing the current time in seconds. Not passing the
+_gettimefunc_ just resets the wallclock. +
+ +
+If _sdl.setwallclock_ is not called, LunaSDL uses the _socket.gettime_ function
+provided by https://github.com/diegonehab/luasocket[LuaSocket]. +
+
+'''
+[[sdl.traceback]]
+* *sdl.traceback* ( [ _s_ ] ) +
+ +
+Enables the stack traceback in error messages. If _s = "off"_, it disables it.
+The stack traceback is disabled by default.
+
+<<<

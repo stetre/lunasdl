@@ -1,0 +1,240 @@
+
+== Summary of LunaSDL functions
+
+The tables below summarize the functions provided by LunaSDL. 
+
+With some exceptions pointed out in the manual sections, the behavior of all the
+functions when an error occurs is to call Lua's
+http://www.lua.org/manual/5.3/manual.html#pdf-error[_error_] function with a string message.
+
+.Create functions
+[cols="45,20,35", options="header"]
+|===
+|Function | Return values | Description
+| <<sdl.createsystem, *sdl.createsystem*>> ( _name_ , _script_, _..._ )
+| _true_, _returnvalues_
+| Creates the _system agent_.
+|<<sdl.createblock, *sdl.createblock*>> ( _name_ , _script_, _..._ )
+| _pid_
+| Creates an agent of the kind _block_.
+|<<sdl.create, *sdl.create*>> ( _name_ , _script_, _..._ )
+| _pid_
+| Creates an agent of the kind _process_.
+|<<sdl.systemreturn, *sdl.systemreturn*>> ( _..._ )
+| -
+| Sets the system agent return values.
+|===
+
+
+.State transition functions
+[cols="45,20,35", options="header"]
+|===
+|Function | Return values | Description
+|<<sdl.start, *sdl.start*>> ( _func_ )
+| -
+| Sets the agent's _start transition_.
+|<<sdl.transition, *sdl.transition*>> ( _state_, _signame_, _func_ )
+| -
+| Sets a transition.
+|<<sdl.default, *sdl.default*>> ( _state_ )
+| -
+| Sets the agent's default state.
+|<<sdl.nextstate, *sdl.nextstate*>> ( _state_ )  
+| -
+| Changes the agent's state.
+|<<sdl.stop, *sdl.stop*>> ( [ _atstopfunc_ ] )
+| -
+| Stops the agent.
+|<<sdl.kill, *sdl.kill*>> ( [ _pid_ ] )
+| -
+|Kills an agent and all its descendants.
+|===
+
+.Signals functions
+[cols="45,20,35", options="header"]
+|===
+|Function | Return values | Description
+|<<sdl.send, *sdl.send*>> ( _signal_, _dstpid_ [, _priority_ ])
+| _now_
+| Sends a signal.
+|<<sdl.priorityinput, *sdl.priorityinput*>> ( _signame_, [ _priority_ ] )
+| -
+| Sets the priority for an input signal.
+|<<sdl.sendat, *sdl.sendat*>> ( _signal_, _dstpid_, _at_ [, _maxdelay_ ])
+| -
+| Sends a time-triggered signal.
+|<<sdl.save, *sdl.save*>> ( )
+| -
+| Saves the current input signal.
+|<<sdl.restore, *sdl.restore*>> ( )
+| -
+| Re-schedules the saved signals.
+|===
+
+.Timers functions
+[cols="45,20,35", options="header"]
+|===
+|Function | Return values | Description
+|<<sdl.timer, *sdl.timer*>> ( _duration_, _signame_ )
+|_tid_
+| Creates a timer.
+|<<sdl.modify, *sdl.modify*>> ( _tid_, _duration_ [, _signame_ ] )  
+| -
+| Modifies a timer.
+|<<sdl.set, *sdl.set*>> ( _tid_ [, _at_ ] )
+| _now_ 
+| Sets (starts) a timer.
+|<<sdl.reset, *sdl.reset*>> ( _tid_ )
+| _now_ 
+| Resets (stops) a timer.
+|<<sdl.active, *sdl.active*>> ( _tid_ )
+| _isactive_, _at_ 
+| Returns the status of a timer.
+|===
+
+.System time functions
+[cols="45,20,35", options="header"]
+|===
+|Function | Return values | Description
+|<<sdl.now, *sdl.now*>> ( )
+| _timestamp_
+| Returns the current system time.
+|<<sdl.since, *sdl.since*>> ( _timestamp_ )
+|_timedifference_
+| Returns the time elapsed since a point in time in the past.
+|<<sdl.startingtime, *sdl.startingtime*>> ( )
+| _startingtime_
+|Returns an absolute timestamp corresponding to system time = _0_.
+|===
+
+
+.Agent information functions
+[cols="45,20,35", options="header"]
+|===
+|Function | Return values | Description
+|<<sdl.pidof, *sdl.pidof*>> ( _name_ [, _block_ ])
+| _pid_
+|Searches for an agent by its name.
+|<<sdl.nameof,*sdl.nameof*>> ( [ _pid_ ] )
+|_name_
+|Returns the name of an agent.
+|<<sdl.blockof,*sdl.blockof*>> ( [ _pid_ ] )
+|_block_
+|Returns the pid of an agent's block.
+|<<sdl.parentof,*sdl.parentof*>> ( [ _pid_ ] )
+| _ppid_
+|Returns the pid of an agent's parent.
+|<<sdl.kindof,*sdl.kindof*>> ( [ _pid_ ] )
+|_kind_
+|Returns the SDL _kind_ of an agent.
+|<<sdl.stateof,*sdl.stateof*>> ( [ _pid_ ] )
+|_state_
+|Returns the current state of an agent.
+|<<sdl.childrenof, *sdl.childrenof*>> ( [ _pid_ ] )
+| _childrenlist_
+| Returns the pids of an agent's children.
+|<<sdl.timersof, *sdl.timersof*>> ( [ _pid_ ] )
+| _timerslist_
+| Returns the tids of an agent's timers.
+|<<sdl.treeof, *sdl.treeof*>> ( [ _pid_ ] )
+| _treestring_
+| Returns a description of the sub-tree of an agent.
+|===
+
+.SDL procedure functions
+[cols="45,20,35", options="header"]
+|===
+|Function | Return values | Description
+|<<sdl.procedure, *sdl.procedure*>> (_atreturn_, _name_ , _script_, _..._ )
+|_pid_
+|Executes an SDL procedure.
+|<<sdl.procreturn, *sdl.procreturn*>> ( _..._ )
+| -
+|Returns from a procedure.
+|===
+
+.Remote functions
+[cols="45,20,35", options="header"]
+|===
+|Function | Return values | Description
+|<<sdl.exportfunc, *sdl.exportfunc*>> ( _funcname_, [ _func_ ] )
+| -
+| Exports or revokes a function.
+|<<sdl.remfunc, *sdl.remfunc*>> ( _pid_, _funcname_, _..._ ) +
+| _returnvalues_
+| Executes a remote function.
+|===
+
+.Socket registration
+[cols="45,20,35", options="header"]
+|===
+|Function | Return values | Description
+|<<sdl.register, *sdl.register*>> ( _object_, _readcallback_ [, _writecallback_ ])
+| - 
+| Registers a file descriptor in the event loop.
+|<<sdl.deregister, *sdl.deregister*>> ( _object_ [, _mode_ ])
+| -
+| Deregisters a file descriptor from the event loop.
+|===
+
+.Log functions
+[cols="45,20,35", options="header"]
+|===
+|Function | Return values | Description
+|<<sdl.logopen, *sdl.logopen*>> ( _filename_ )
+| _filehandle_
+|Opens the system logfile.
+|<<sdl.logfile,*sdl.logfile*>> ( )
+|_filehandle_, _filename_
+|Returns the system logfile handle and name.
+|<<sdl.logson,*sdl.logson*>> ( )
+| -
+| Enables logs in the system logfile.
+|<<sdl.logson,*sdl.logsoff*>> ( )
+| -
+| Disables logs in the system logfile.
+|<<sdl.logflush,*sdl.logflush*>> ( )
+| -
+| Flushes the system logfile.
+|<<sdl.logclose,*sdl.logclose*>> ( )
+| -
+| Flushes and closes the system logfile.
+|<<sdl.logf,*sdl.logf*>> ( _formatstring_, _..._ )
+| -
+| Writes on the system logfile.
+|<<sdl.printf,*sdl.printf*>> ( _formatstring_, _..._ )
+| -
+| Writes on the system logfile and on _stdout_.
+|<<sdl.traceson, *sdl.traceson*>> ( _..._ )
+| - 
+| Enables traces. 
+|<<sdl.tracesoff, *sdl.tracesoff*>> ( _..._ )
+| - 
+| Disables traces.
+|<<sdl.trace, *sdl.trace*>> ( _tag_, _formatstring_, _..._ )
+| - 
+| Writes a trace on the system logfile.
+|===
+
+.Optional configuration functions
+[cols="45,20,35", options="header"]
+|===
+|Function | Return values | Description
+|<<sdl.envtemplate, *sdl.envtemplate*>> ( _env_ )
+| -
+| Sets the template environment.
+|<<sdl.pollfuncs, *sdl.pollfuncs*>> ( _poll_ [, _add_ [, _del_ [, _reset_]]] )
+| - 
+|Sets the poll function and its helper hooks.
+|<<sdl.prioritylevels, *sdl.prioritylevels*>> ( [ _levels_ ] )
+| -
+|Configures the number of priority levels.
+|<<sdl.setwallclock, *sdl.setwallclock*>> ( [ _gettimefunc_ ] )
+| - 
+|Sets the _gettime_ function and resets the wallclock.
+|<<sdl.traceback, *sdl.traceback*>> ( [ _s_ ] )
+| -
+|Enables the stack traceback in error messages. 
+|===
+
+<<<

@@ -1,0 +1,110 @@
+
+== Logs and traces
+
+=== Logs
+
+A LunaSDL application can open a *system logfile* and use the functions described
+here to write on it. The system logfile is also used by LunaSDL as destination for
+<<_traces, traces>>.
+
+NOTE: Of course, nothing prevents an application to open other logfiles and write
+on them using the standard Lua libraries.
+
+'''
+[[sdl.logopen]]
+* *sdl.logopen* ( _filename_ ) +
+-> _filehandle_ +
+ +
+Opens the file named _filename_ to be used as system logfile, and enables logs.
+The file is opened in write mode, using the standard Lua
+http://www.lua.org/manual/5.3/manual.html#pdf-io.open[_io.open_]. 
+If the system logfile is already open, it is closed and re-opened.
+Any previously existing file with the same name is overwritten.
+
+NOTE: If the system logfile is not open, or if it is disabled, calls of the following 
+functions are silently ignored and raise no errors.
+
+'''
+[[sdl.logfile]]
+* *sdl.logfile* ( ) +
+-> _filehandle_, _filename_ +
+ +
+Returns the file handle and the file name of the system logfile (if it is open, otherwise
+it returns _nil_ and an error message).
+
+'''
+[[sdl.logson]]
+* *sdl.logson* ( ) +
+* *sdl.logsoff* ( ) +
+ +
+Enable/disable logs on the system logfile, if it is open. Logs are enabled by default
+at the opening of the system logfile. These functions can be used to define '`logging windows`'.
+
+'''
+[[sdl.logflush]]
+* *sdl.logflush* ( ) +
+ +
+Flushes the system logfile. LunaSDL automatically flushes it only at its closure
+or when the system agent stops.
+
+'''
+[[sdl.logclose]]
+* *sdl.logclose* ( ) +
+ +
+Flushes and closes the system logfile.
+
+'''
+[[sdl.logf]]
+* *sdl.logf* ( _formatstring_, _..._ ) +
+ +
+Formats its arguments using the standard Lua
+http://www.lua.org/manual/5.3/manual.html#pdf-string.format[_string.format_],
+and writes the resulting message to the system logfile, prepending it with a
+<<_system_time,timestamp>> and the pid of the current SDL agent.
+
+'''
+[[sdl.printf]]
+* *sdl.printf* ( _formatstring_, _..._ ) +
+ +
+Same as <<sdl.logf,_sdl.logf_>> above, it additionally writes the message on _stdout_ also
+(without the timestamp and the pid preamble). 
+If the system logfile is not open or if logs are disabled, it writes on _stdout_ only.
+
+<<<
+
+=== Traces
+
+Traces are conditional logs, also written on the system logfile. Each trace is
+associated with a *_tag_* (a string), and it is written on the system logfile only
+if traces are enabled for that specific tag.
+
+A few traces are produced by LunaSDL for troubleshooting, but application code may
+produce traces too.
+
+'''
+[[sdl.traceson]]
+* *sdl.traceson* ( _..._ ) +
+ +
+Enables traces. The function accepts an optional list of tags. If one or
+more tags are passed as argument, it adds them to the list of enabled tags.
+Otherwise it enables traces however tagged. +
+ +
+By default, traces are disabled for any tag.
+
+'''
+[[sdl.tracesoff]]
+* *sdl.tracesoff* ( _..._ ) +
+ +
+Disables traces. Accepts an optional list of tags. If one or more tags are
+passed as argument, it adds them to the list of disabled tags.
+Otherwise it disables traces however tagged.
+
+'''
+[[sdl.trace]]
+* *sdl.trace* ( _tag_, _formatstring_, _..._ ) +
+ +
+Similar to <<sdl.logf,_sdl.logf_>>, with the differences that the formatted message is
+written on the system logfile only if traces are enabled for the passed _tag_ (a string),
+and that the preamble contains the tag also.
+
+<<<

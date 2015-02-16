@@ -1,0 +1,69 @@
+= LunaSDL Reference Manual
+Stefano Trettel
+v0.1, 2015-02-06
+:toc: left
+:stylesdir: ./
+:stylesheet: colony.css
+:source-highlighter: pygments
+:pygments-style: autumn
+:source-language: lua
+:examplesdir: ../examples
+
+////
+:stylesheet: foundation.css
+:stylesheet: colony.css
+:source-highlighter: pygments
+:pygments-style: autumn
+
+:stylesheet: golo.css
+:source-highlighter: coderay
+
+:stylesheet: golo.css
+:source-highlighter: pygments
+:pygments-style: autumn
+alt:
+:pygments-style: paraiso-light
+:pygments-style: xcode
+:pygments-style: manni
+
+:stylesheet: github.css
+:source-highlighter: pygments
+:pygments-style: paraiso-light
+////
+
+image::powered-by-lua.gif[Lua logo, link=http://www.lua.org]
+
+include::introduction.adoc[]
+
+include::overview.adoc[]
+
+include::main.adoc[]
+
+include::agent.adoc[]
+
+include::create.adoc[]
+
+include::signals.adoc[]
+
+include::timers.adoc[]
+
+include::now.adoc[]
+
+include::info.adoc[]
+
+include::procedures.adoc[]
+
+include::remfunc.adoc[]
+
+include::loop.adoc[]
+
+include::logs.adoc[]
+
+include::configure.adoc[]
+
+include::examples.adoc[]
+
+include::variables.adoc[]
+
+include::summary.adoc[]
+

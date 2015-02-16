@@ -1,0 +1,33 @@
+
+== System time
+
+A LunaSDL application has a wallclock that gives the so-called *SDL system time*
+(or, shortly, the _system time_). The wallclock is started when the LunaSDL module is first
+loaded, so the system time is relative to that point in time, unless the wallclock
+is reset during the <<_optional_configurations, configuration phase>>.
+
+'''
+[[sdl.now]]
+* *sdl.now* ( ) +
+-> _timestamp_ +
+ +
+Returns the current system time, in seconds.
+
+'''
+[[sdl.since]]
+* *sdl.since* ( _timestamp_ ) +
+-> _timedifference_ +
+ +
+Returns the time elapsed from the point in time given by _timestamp_.
+
+'''
+[[sdl.startingtime]]
+* *sdl.startingtime* ( )  +
+-> _startingtime_ +
+ +
+Returns the absolute timestamp corresponding to the point _0 (zero)_ of the system time.
+The meaning of this timestamp depends on the underlying function used to retrieve
+time from the operating system (see <<sdl.setwallclock, _sdl.setwallclock_ >> for more
+details).
+
+<<<

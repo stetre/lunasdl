@@ -1,0 +1,86 @@
+
+== Creating agents
+
+Agents are created using the functions that follow, all of them accepting the same
+arguments, namely:
+
+[horizontal]
+name:: the agent's name (a string), which is required to be unique in the
+block the agent is contained in.
+If _name=nil_, then the default name _"agent<pid>"_ is automatically assigned
+to the agent (for example, the default name for the system agent is _"agent0"_).
+script:: the agent script defining the <<_agent_scripts, agent>> (see also 
+<<_finding_agent_scripts, _Finding agent scripts_>> below).
+$$...$$:: optional arguments to be passed to the <<sdl.start, start transition function>>
+set by the script.
+
+'''
+[[sdl.createsystem]]
+* *sdl.createsystem* ( _name_ , _script_, _..._ ) +
+-> _true_, _returnvalues_ +
+ +
+Creates the _system agent_ and enters the event loop. Any other agent must be created
+by the system agent itself or by one of its descendants using the 
+<<sdl.createblock, _sdl.createblock_>> or the <<sdl.create, _sdl.create_>> functions
+described below. +
+ +
+This function exits the loop and returns only when the system agent terminates - which can 
+happen only after all the other agents have terminated too -  or if an error occurs, in which
+case it returns _nil_ and an error message (notice that this means that it does not call
+Lua's http://www.lua.org/manual/5.3/manual.html#pdf-error[_error_] function as most LunaSDL
+functions do). +
+ +
+On success, the function returns _true_, possibly followed by a list of values
+(if any were set, during the execution of the system, using the
+<<sdl.systemreturn,_sdl.systemreturn_>> function). +
+
+'''
+[[sdl.createblock]]
+* *sdl.createblock* ( _name_ , _script_, _..._ ) +
+-> _pid_ +
+ +
+Creates an agent of the SDL kind _block_ and returns its _pid_. A block agent can be created only by other block agents, including the system agent (which is also a block, although a special one).
+
+'''
+[[sdl.create]]
+* *sdl.create* ( _name_ , _script_, _..._ ) +
+-> _pid_ +
+ +
+Creates an agent of the SDL kind _process_ and returns its _pid_. A process agent can be created
+either by block agents (including the system agent) or by other processes.
+
+=== System return values
+
+[[sdl.systemreturn]]
+* *sdl.systemreturn* ( _..._ ) +
+ +
+Sets the values to be returned by the <<sdl.createsystem, _sdl.createsystem_>> function
+when the system stops gracefully.
+
+=== Finding agent scripts
+
+To find agent scripts, the functions of the _sdl.create_ family use the same
+mechanism that Lua uses to find modules and packages. 
+
+More precisely, the _script_ argument is resolved by invoking the standard Lua
+http://www.lua.org/manual/5.3/manual.html#pdf-package.searchpath[_package.searchpath_]
+function, passing it the templates contained in the variable *_sdl.path_* as the
+argument for the _path_ parameter.
+
+The _sdl.path_ variable defaults to `_"?;?.lua"_` so that if, for example, an agent
+is created like so:
+
+[source,lua,indent=1]
+----
+pid = sdl.create("myagentname","mydir.myscript")
+----
+
+then LunaSDL searches for a file named `_"mydir/myscript"_` or `_mydir/myscript.lua"_`,
+in this order.
+
+The default _sdl.path_ can be overridden by setting the `LUNASDL_PATH` environment
+variable with the desired path templates (in the same way one sets the standard `LUA_PATH`
+variable to override the default
+http://www.lua.org/manual/5.3/manual.html#pdf-package.path[_package.path_]).
+
+<<<

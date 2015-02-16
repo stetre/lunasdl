@@ -1,0 +1,39 @@
+
+== The main script
+
+A typical main script of a LunaSDL application looks like in the example below.
+The application is executed like any other regular Lua script, for example
+using the http://www.lua.org/manual/5.3/manual.html#7[standalone Lua interpreter]:
+
+[source,shell,indent=1]
+----
+~$ lua main.lua
+----
+
+.Main script example:
+[source,lua,indent=1]
+----
+-- main.lua
+local sdl = require("lunasdl")
+
+-- ... get arguments from command line or from elsewhere...
+-- ... optionally configure LunaSDL ...
+
+-- Open the system log file
+sdl.logopen("mylogfile.log")
+
+
+-- Create the system agent as defined by the agent script "mysystem.lua",
+-- give it the agent name "System", and enter the event loop:
+assert(sdl.createsystem("System","mysystem"))
+
+----
+
+The script loads the LunaSDL module, optionally <<_optional_configurations, configures>> it,
+and then it <<_creating_agents, creates>> the first agent (i.e. the _system agent_), which in
+turn may or may not create other agents, depending on the application.
+
+The <<sdl.createsystem, _sdl.createsystem_>> call, besides creating the system agent, enters
+the event loop and returns only when the system stops.
+
+<<<

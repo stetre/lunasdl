@@ -1,0 +1,44 @@
+
+=== Ping Pong over UDP
+
+:exampledir: {examplesdir}/udppingpong
+
+This example reuses the `player.lua` script from the <<_ping_pong, Ping Pong>> example.
+
+This time the two player agents exchanging pings and pongs are created in two different
+systems - i.e. two different OS processes - and communicate over UDP. The system agent
+of each side translates messages received on the socket into signals to be forwarded to
+the local player agent, and viceversa.
+
+The scripts for this example are in `examples/udppingpong/`. To run the example
+there are two shell scripts, `responder` and `initiator`, to be executed in this order
+in two different shells.
+
+Please notice how the shell scripts define the `LUNASDL_PATH` environment variable so that
+LunaSDL can find the `player.lua` script in the directory containing the previous example
+(this is needed in this example because the script is not in the current directory).
+
+[source,lua]
+----
+include::{exampledir}/main.lua[]
+----
+
+.System agent
+image::{exampledir}/system.png[] 
+
+[source,lua]
+----
+include::{exampledir}/system.lua[]
+----
+
+[source,shell]
+----
+include::{exampledir}/responder[]
+----
+
+[source,shell]
+----
+include::{exampledir}/initiator[]
+----
+
+<<<

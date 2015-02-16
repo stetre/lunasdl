@@ -1,0 +1,35 @@
+
+=== Database agent
+
+:exampledir: {examplesdir}/database
+
+This example uses the <<_remote_functions, remote functions>> construct to implement
+a centralized database agent that serves other user agents.
+
+The `database.lua` script defines the database agent. The `user.lua` script
+defines a user agent that locates the database by its <<agent_name, agent name>>
+and uses the 'get' and 'set' functions exported by it.
+
+The scripts for this example are in `examples/database/`.
+
+[source,lua]
+----
+include::{exampledir}/main.lua[]
+----
+
+[source,lua]
+----
+include::{exampledir}/system.lua[]
+----
+
+[source,lua]
+----
+include::{exampledir}/database.lua[]
+----
+
+[source,lua]
+----
+include::{exampledir}/user.lua[]
+----
+
+<<<
