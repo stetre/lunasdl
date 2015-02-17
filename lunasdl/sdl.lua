@@ -749,6 +749,7 @@ end
 --=============================================================================
 
 local function start(func) 
+   assertf(2, type(func)=="function", "invalid func")
    sdl_.startfunc=func
 end
 
