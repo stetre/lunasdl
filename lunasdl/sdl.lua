@@ -21,7 +21,7 @@ local DEFAULT_POLLRESET = nil --function() return true end
 
 -- singleton sdl table
 local sdl = {
-   _VERSION = "LunaSDL 0.1",
+   _VERSION = "LunaSDL 0.2",
    path = DEFAULT_PATH, -- path to scripts (package.path like)
 } 
 
