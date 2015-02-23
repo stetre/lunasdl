@@ -856,9 +856,9 @@ local function send(sig, dstpid, priority)
    local srcpid =  caller_ or self_
    local sendtime = now()
    if not priority then -- normal priority
-      scheduler:push({ { table.unpack(sig) }, srcpid, dstpid, sendtime })
+      scheduler:push({ sig, srcpid, dstpid, sendtime })
    else -- priority 1 ... N
-      prioschedulers:push(priority, { { table.unpack(sig) }, srcpid, dstpid, sendtime })
+      prioschedulers:push(priority, { sig, srcpid, dstpid, sendtime })
    end
    sdl.trace("signal","send %s %u->%u (priority=%s) ",
       sig[1],srcpid,dstpid, priority and tostring(priority) or "normal")
@@ -889,7 +889,7 @@ end
 local function save()
    sdl.trace("signal","save %s (sender=%u)",signal_[1],sender_)
    if not sdl_.saved then sdl_.saved = fifo() end
-   sdl_.saved:push({ { table.unpack(signal_) }, sender_, self_, sendime_, exptime_, istimer_ })
+   sdl_.saved:push({ signal_, sender_, self_, sendime_, exptime_, istimer_ })
 end
 
 local function restore()
@@ -980,7 +980,7 @@ ttsend = function(sig, srcpid, dstpid, at, maxdelay, sendtime)
    local expiry = maxdelay and at + maxdelay or NEVER 
    -- at = when signal is expected to be actually delivered
    -- expiry = when sig must be considered stale
-   local s = { { table.unpack(sig) }, srcpid, dstpid, at, expiry }
+   local s = { sig, srcpid, dstpid, at, expiry }
    sdl.trace("signal","send %s %u->%u at %.6f (expires at %.6f)",sig[1],srcpid,dstpid,at,expiry)
    -- local ts = now()
    ttqueue:insert({ s, at, expiry })
