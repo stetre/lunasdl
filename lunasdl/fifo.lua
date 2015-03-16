@@ -27,6 +27,11 @@ local function fifo()
          return val
       end,  
 
+      peek = function(self)
+         if first > last then return nil end
+         return self[first]
+      end,
+
       moveto = function(self, dstfifo)
       -- pops all values and pushes them in dstfifo
          local val = self:pop()
