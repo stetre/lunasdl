@@ -1,4 +1,4 @@
-##LunaSDL: SDL-oriented concurrency in Lua
+## LunaSDL: SDL-oriented concurrency in Lua
 
 LunaSDL is a Lua module for event-driven concurrent programming, whose design
 follows the concurrency model of the

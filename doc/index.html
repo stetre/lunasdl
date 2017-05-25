@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.2">
+<meta name="generator" content="Asciidoctor 1.5.4">
 <meta name="author" content="Stefano Trettel">
 <title>LunaSDL Reference Manual</title>
 <style>
@@ -861,8 +861,8 @@ p.tableblock.header { color: #6d6e71; }
 <p>This manual describes the functions provided by LunaSDL.
 It is assumed that the reader is familiar with the
 <a href="http://www.lua.org">Lua programming language</a>. Familiarity with SDL may be of help,
-but is not essential to read this document.<span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span>
-<span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span></p>
+but is not essential to read this document.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>
+<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup></p>
 </div>
 <div class="sect2">
 <h3 id="_what_is_lunasdl">What is LunaSDL</h3>
@@ -875,7 +875,7 @@ Description Language (SDL)</a></strong>.</p>
 <div class="paragraph">
 <p>LunaSDL turns Lua into an SDL dialect by extending it with the basic constructs for the
 implementation of SDL systems, which are systems composed of concurrent, reactive and
-intercommunicating entities referred to as <strong>agents</strong>.<span class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</span></p>
+intercommunicating entities referred to as <strong>agents</strong>.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</sup></p>
 </div>
 <div class="paragraph">
 <p>What LunaSDL is not. It is not an editor or a validator of SDL specifications, and it is
@@ -1028,7 +1028,7 @@ and set <a href="#_timers"><strong>timers</strong></a>, whose expiries are also 
 <div class="paragraph">
 <p>Agents may also communicate with the outside world with respect to the system (i.e. the
 <em>environment</em>
-<span class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</span>)
+<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</sup>)
 by means of <a href="#_the_event_loop"><strong>file descriptor objects</strong></a> like, for example, sockets.
 Multiple file descriptor objects can be used concurrently.</p>
 </div>
@@ -1129,14 +1129,14 @@ using the <a href="http://www.lua.org/manual/5.3/manual.html#7">standalone Lua i
 <div class="content">
 <pre class="pygments highlight"><code data-lang="lua"> <span class="tok-c1">-- main.lua</span>
  <span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">lunasdl&quot;</span><span class="tok-p">)</span>
- 
+
  <span class="tok-c1">-- ... get arguments from command line or from elsewhere...</span>
  <span class="tok-c1">-- ... optionally configure LunaSDL ...</span>
- 
+
  <span class="tok-c1">-- Open the system log file</span>
  <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logopen</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">mylogfile.log&quot;</span><span class="tok-p">)</span>
- 
- 
+
+
  <span class="tok-c1">-- Create the system agent as defined by the agent script &quot;mysystem.lua&quot;,</span>
  <span class="tok-c1">-- give it the agent name &quot;System&quot;, and enter the event loop:</span>
  <span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">System&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">mysystem&quot;</span><span class="tok-p">))</span></code></pre>
@@ -1168,30 +1168,30 @@ and input signals names, and the top part implements those Lua functions.</p>
 <div class="title">Agent script (incomplete) example:</div>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="lua"> <span class="tok-c1">-- agent.lua</span>
- 
+
  <span class="tok-kd">local</span> <span class="tok-n">T</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">timer</span><span class="tok-p">(</span><span class="tok-mi">30</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">T_EXPIRED&quot;</span><span class="tok-p">)</span>
  <span class="tok-kd">local</span> <span class="tok-n">somevariable</span> <span class="tok-o">=</span> <span class="tok-mi">0</span>
- 
+
  <span class="tok-k">function</span> <span class="tok-nf">Start</span><span class="tok-p">()</span>
    <span class="tok-c1">-- .. &#39;start transition&#39; here ..</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Waiting&quot;</span><span class="tok-p">)</span>
  <span class="tok-k">end</span>
- 
+
  <span class="tok-k">function</span> <span class="tok-nf">Waiting_ConReq</span><span class="tok-p">()</span>
    <span class="tok-c1">-- ... transition: received CONREQ signal in Waiting state ...</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">CONACK&quot;</span> <span class="tok-p">},</span> <span class="tok-n">sender_</span><span class="tok-p">)</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">set</span><span class="tok-p">(</span><span class="tok-n">T</span><span class="tok-p">)</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Connecting&quot;</span><span class="tok-p">)</span>
  <span class="tok-k">end</span>
- 
+
  <span class="tok-k">function</span> <span class="tok-nf">Connecting_TExpired</span><span class="tok-p">()</span>
    <span class="tok-c1">-- ... transition: received T_EXPIRED signal in Connecting state ...</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">FAILURE&quot;</span> <span class="tok-p">},</span> <span class="tok-n">parent_</span><span class="tok-p">)</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">()</span>
  <span class="tok-k">end</span>
- 
+
  <span class="tok-c1">-- ... cut ...</span>
- 
+
  <span class="tok-c1">-- the state machine:</span>
  <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-n">Start</span><span class="tok-p">)</span> <span class="tok-c1">-- sets the &#39;start transition</span>
  <span class="tok-c1">--             state, input signal, transition function</span>
@@ -3963,7 +3963,7 @@ functions when an error occurs is to call Lua&#8217;s
 <div id="footer">
 <div id="footer-text">
 Version 0.2<br>
-Last updated 2015-02-23 09:04:37 CET
+Last updated 2015-07-18 13:45:16 CEST
 </div>
 </div>
 </body>
