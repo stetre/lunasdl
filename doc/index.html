@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.4">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
 <meta name="author" content="Stefano Trettel">
 <title>LunaSDL Reference Manual</title>
 <style>
@@ -696,12 +696,14 @@ p.tableblock.header { color: #6d6e71; }
 </style>
 <style>
 .listingblock .pygments .hll { background-color: #ffffcc }
-.listingblock .pygments  { background: #ffffff; }
+.listingblock .pygments, .listingblock .pygments code { background: #ffffff; }
 .listingblock .pygments .tok-c { color: #aaaaaa; font-style: italic } /* Comment */
 .listingblock .pygments .tok-err { color: #FF0000; background-color: #FFAAAA } /* Error */
 .listingblock .pygments .tok-k { color: #0000aa } /* Keyword */
+.listingblock .pygments .tok-ch { color: #aaaaaa; font-style: italic } /* Comment.Hashbang */
 .listingblock .pygments .tok-cm { color: #aaaaaa; font-style: italic } /* Comment.Multiline */
 .listingblock .pygments .tok-cp { color: #4c8317 } /* Comment.Preproc */
+.listingblock .pygments .tok-cpf { color: #aaaaaa; font-style: italic } /* Comment.PreprocFile */
 .listingblock .pygments .tok-c1 { color: #aaaaaa; font-style: italic } /* Comment.Single */
 .listingblock .pygments .tok-cs { color: #0000aa; font-style: italic } /* Comment.Special */
 .listingblock .pygments .tok-gd { color: #aa0000 } /* Generic.Deleted */
@@ -739,8 +741,10 @@ p.tableblock.header { color: #6d6e71; }
 .listingblock .pygments .tok-mh { color: #009999 } /* Literal.Number.Hex */
 .listingblock .pygments .tok-mi { color: #009999 } /* Literal.Number.Integer */
 .listingblock .pygments .tok-mo { color: #009999 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sa { color: #aa5500 } /* Literal.String.Affix */
 .listingblock .pygments .tok-sb { color: #aa5500 } /* Literal.String.Backtick */
 .listingblock .pygments .tok-sc { color: #aa5500 } /* Literal.String.Char */
+.listingblock .pygments .tok-dl { color: #aa5500 } /* Literal.String.Delimiter */
 .listingblock .pygments .tok-sd { color: #aa5500 } /* Literal.String.Doc */
 .listingblock .pygments .tok-s2 { color: #aa5500 } /* Literal.String.Double */
 .listingblock .pygments .tok-se { color: #aa5500 } /* Literal.String.Escape */
@@ -751,9 +755,11 @@ p.tableblock.header { color: #6d6e71; }
 .listingblock .pygments .tok-s1 { color: #aa5500 } /* Literal.String.Single */
 .listingblock .pygments .tok-ss { color: #0000aa } /* Literal.String.Symbol */
 .listingblock .pygments .tok-bp { color: #00aaaa } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-fm { color: #00aa00 } /* Name.Function.Magic */
 .listingblock .pygments .tok-vc { color: #aa0000 } /* Name.Variable.Class */
 .listingblock .pygments .tok-vg { color: #aa0000 } /* Name.Variable.Global */
 .listingblock .pygments .tok-vi { color: #aa0000 } /* Name.Variable.Instance */
+.listingblock .pygments .tok-vm { color: #aa0000 } /* Name.Variable.Magic */
 .listingblock .pygments .tok-il { color: #009999 } /* Literal.Number.Integer.Long */
 </style>
 </head>
@@ -917,7 +923,7 @@ purpose, there is an example <code>configure</code> shell script in the base dir
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"># ... download lunasdl-0.1.tar.gz ...
+<pre class="pygments highlight"><code data-lang="shell"><span></span># ... download lunasdl-0.1.tar.gz ...
 [ ]$ tar -zxpvf lunasdl-0.1.tar.gz
 [ ]$ cd lunasdl-0.1
 [lunasdl-0.1]$ . configure</code></pre>
@@ -928,7 +934,7 @@ purpose, there is an example <code>configure</code> shell script in the base dir
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">[ ]$ wget https://github.com/stetre/lunasdl/archive/v0.1.tar.gz
+<pre class="pygments highlight"><code data-lang="shell"><span></span>[ ]$ wget https://github.com/stetre/lunasdl/archive/v0.1.tar.gz
 [ ]$ tar -zxpvf v0.1.tar.gz
 [ ]$ cd lunasdl-0.1
 [lunasdl-0.1]$ . configure</code></pre>
@@ -956,7 +962,7 @@ table is named <strong><em>sdl</em></strong>, i.e. that it is loaded with:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">lunasdl&quot;</span><span class="tok-p">)</span></code></pre>
+<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;lunasdl&quot;</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1121,25 +1127,25 @@ using the <a href="http://www.lua.org/manual/5.3/manual.html#7">standalone Lua i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"> ~$ lua main.lua</code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span> ~$ lua main.lua</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Main script example:</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"> <span class="tok-c1">-- main.lua</span>
- <span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">lunasdl&quot;</span><span class="tok-p">)</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-c1">-- main.lua</span>
+ <span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;lunasdl&quot;</span><span class="tok-p">)</span>
 
  <span class="tok-c1">-- ... get arguments from command line or from elsewhere...</span>
  <span class="tok-c1">-- ... optionally configure LunaSDL ...</span>
 
  <span class="tok-c1">-- Open the system log file</span>
- <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logopen</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">mylogfile.log&quot;</span><span class="tok-p">)</span>
+ <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logopen</span><span class="tok-p">(</span><span class="tok-s2">&quot;mylogfile.log&quot;</span><span class="tok-p">)</span>
 
 
  <span class="tok-c1">-- Create the system agent as defined by the agent script &quot;mysystem.lua&quot;,</span>
  <span class="tok-c1">-- give it the agent name &quot;System&quot;, and enter the event loop:</span>
- <span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">System&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">mysystem&quot;</span><span class="tok-p">))</span></code></pre>
+ <span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-s2">&quot;System&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;mysystem&quot;</span><span class="tok-p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1167,40 +1173,40 @@ and input signals names, and the top part implements those Lua functions.</p>
 <div class="listingblock">
 <div class="title">Agent script (incomplete) example:</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"> <span class="tok-c1">-- agent.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-c1">-- agent.lua</span>
 
- <span class="tok-kd">local</span> <span class="tok-n">T</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">timer</span><span class="tok-p">(</span><span class="tok-mi">30</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">T_EXPIRED&quot;</span><span class="tok-p">)</span>
+ <span class="tok-kd">local</span> <span class="tok-n">T</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">timer</span><span class="tok-p">(</span><span class="tok-mi">30</span><span class="tok-p">,</span><span class="tok-s2">&quot;T_EXPIRED&quot;</span><span class="tok-p">)</span>
  <span class="tok-kd">local</span> <span class="tok-n">somevariable</span> <span class="tok-o">=</span> <span class="tok-mi">0</span>
 
- <span class="tok-k">function</span> <span class="tok-nf">Start</span><span class="tok-p">()</span>
+ <span class="tok-kr">function</span> <span class="tok-nf">Start</span><span class="tok-p">()</span>
    <span class="tok-c1">-- .. &#39;start transition&#39; here ..</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Waiting&quot;</span><span class="tok-p">)</span>
- <span class="tok-k">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;Waiting&quot;</span><span class="tok-p">)</span>
+ <span class="tok-kr">end</span>
 
- <span class="tok-k">function</span> <span class="tok-nf">Waiting_ConReq</span><span class="tok-p">()</span>
+ <span class="tok-kr">function</span> <span class="tok-nf">Waiting_ConReq</span><span class="tok-p">()</span>
    <span class="tok-c1">-- ... transition: received CONREQ signal in Waiting state ...</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">CONACK&quot;</span> <span class="tok-p">},</span> <span class="tok-n">sender_</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;CONACK&quot;</span> <span class="tok-p">},</span> <span class="tok-n">sender_</span><span class="tok-p">)</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">set</span><span class="tok-p">(</span><span class="tok-n">T</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Connecting&quot;</span><span class="tok-p">)</span>
- <span class="tok-k">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;Connecting&quot;</span><span class="tok-p">)</span>
+ <span class="tok-kr">end</span>
 
- <span class="tok-k">function</span> <span class="tok-nf">Connecting_TExpired</span><span class="tok-p">()</span>
+ <span class="tok-kr">function</span> <span class="tok-nf">Connecting_TExpired</span><span class="tok-p">()</span>
    <span class="tok-c1">-- ... transition: received T_EXPIRED signal in Connecting state ...</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">FAILURE&quot;</span> <span class="tok-p">},</span> <span class="tok-n">parent_</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;FAILURE&quot;</span> <span class="tok-p">},</span> <span class="tok-n">parent_</span><span class="tok-p">)</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">()</span>
- <span class="tok-k">end</span>
+ <span class="tok-kr">end</span>
 
  <span class="tok-c1">-- ... cut ...</span>
 
  <span class="tok-c1">-- the state machine:</span>
  <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-n">Start</span><span class="tok-p">)</span> <span class="tok-c1">-- sets the &#39;start transition</span>
  <span class="tok-c1">--             state, input signal, transition function</span>
- <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Waiting&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">CONREQ&quot;</span><span class="tok-p">,</span><span class="tok-n">Waiting_ConReq</span><span class="tok-p">)</span>
- <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Connecting&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">CONCNF&quot;</span><span class="tok-p">,</span><span class="tok-n">Connecting_ConCnf</span><span class="tok-p">)</span>
- <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Connecting&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">T_EXPIRED&quot;</span><span class="tok-p">,</span><span class="tok-n">Connecting_TExpired</span><span class="tok-p">)</span>
- <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Connected&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">DATA&quot;</span><span class="tok-p">,</span><span class="tok-n">Connected_Data</span><span class="tok-p">)</span>
- <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Any&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">STOP&quot;</span><span class="tok-p">,</span><span class="tok-n">Any_Stop</span><span class="tok-p">)</span>
- <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">default</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Any&quot;</span><span class="tok-p">)</span> <span class="tok-c1">-- the default state (&#39;asterisk state&#39;)</span></code></pre>
+ <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Waiting&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;CONREQ&quot;</span><span class="tok-p">,</span><span class="tok-n">Waiting_ConReq</span><span class="tok-p">)</span>
+ <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Connecting&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;CONCNF&quot;</span><span class="tok-p">,</span><span class="tok-n">Connecting_ConCnf</span><span class="tok-p">)</span>
+ <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Connecting&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;T_EXPIRED&quot;</span><span class="tok-p">,</span><span class="tok-n">Connecting_TExpired</span><span class="tok-p">)</span>
+ <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Connected&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;DATA&quot;</span><span class="tok-p">,</span><span class="tok-n">Connected_Data</span><span class="tok-p">)</span>
+ <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Any&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;STOP&quot;</span><span class="tok-p">,</span><span class="tok-n">Any_Stop</span><span class="tok-p">)</span>
+ <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">default</span><span class="tok-p">(</span><span class="tok-s2">&quot;Any&quot;</span><span class="tok-p">)</span> <span class="tok-c1">-- the default state (&#39;asterisk state&#39;)</span></code></pre>
 </div>
 </div>
 <div class="sect2">
@@ -1387,7 +1393,7 @@ machine and puts the agent in a <strong>stopping condition</strong> which prelud
 <p>The agent remains in the stopping condition until all its children have terminated,
 then it terminates too. While in the stopping condition, it will not receive any input
 signal (its state machine has ended), but it will remain available for
-<a href="#_remote_functions">remote functions</a> calls.</p>
+<a href="#_remote_functions">remote functions </a> calls.</p>
 </div>
 <div class="paragraph">
 <p>If an <em>atstopfunc</em> finalizer is passed when invoking <a href="#sdl.stop"><em>sdl.stop</em></a>, it is
@@ -1395,7 +1401,7 @@ executed right before the agent actually terminates and after all his children h
 </div>
 <div class="paragraph">
 <p>If the stopping agent is the system agent, its termination causes also the termination
-of the <a href="#eventloop">event loop</a> and the return from the
+of the <a href="#eventloop">event loop </a> and the return from the
 <a href="#sdl.createsystem"><em>sdl.createsystem</em></a> function call. Notice that this happens when the
 system agent actually terminates, i.e. when all its descendants have already terminated
 (and thus it is the last agent left in the system).</p>
@@ -1522,7 +1528,7 @@ is created like so:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"> <span class="tok-n">pid</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">myagentname&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">mydir.myscript&quot;</span><span class="tok-p">)</span></code></pre>
+<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-n">pid</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;myagentname&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;mydir.myscript&quot;</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1551,7 +1557,7 @@ with numeric key=<em>1</em>) must be a string and denotes the <strong>signal nam
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"> <span class="tok-n">mysignal</span> <span class="tok-o">=</span> <span class="tok-p">{</span> <span class="tok-s2">&quot;</span><span class="tok-s">MYSIGNAL&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;</span><span class="tok-s">hello&quot;</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-n">self_</span><span class="tok-p">,</span> <span class="tok-kc">true</span> <span class="tok-p">}</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-n">mysignal</span> <span class="tok-o">=</span> <span class="tok-p">{</span> <span class="tok-s2">&quot;MYSIGNAL&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;hello&quot;</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-n">self_</span><span class="tok-p">,</span> <span class="tok-kc">true</span> <span class="tok-p">}</span>
  <span class="tok-c1">-- &quot;MYSIGNAL&quot; is the signal name; the fields values follow</span></code></pre>
 </div>
 </div>
@@ -1848,7 +1854,7 @@ Returns the time elapsed from the point in time given by <em>timestamp</em>.</p>
 <br>
 Returns the absolute timestamp corresponding to the point <em>0 (zero)</em> of the system time.
 The meaning of this timestamp depends on the underlying function used to retrieve
-time from the operating system (see <a href="#sdl.setwallclock"><em>sdl.setwallclock</em></a> for more
+time from the operating system (see <a href="#sdl.setwallclock"><em>sdl.setwallclock</em> </a> for more
 details).</p>
 </li>
 </ul>
@@ -2590,7 +2596,7 @@ can be run at the shell prompt with:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">[examples/helloworld ]$ lua main.lua</code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>[examples/helloworld ]$ lua main.lua</code></pre>
 </div>
 </div>
 <div class="imageblock">
@@ -2601,32 +2607,32 @@ can be run at the shell prompt with:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- Main script: main.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- Main script: main.lua</span>
 
-<span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">lunasdl&quot;</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;lunasdl&quot;</span><span class="tok-p">)</span>
 
-<span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">HelloSystem&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">hello&quot;</span><span class="tok-p">))</span></code></pre>
+<span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-s2">&quot;HelloSystem&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;hello&quot;</span><span class="tok-p">))</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- Agent script: hello.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- Agent script: hello.lua</span>
 
-<span class="tok-kd">local</span> <span class="tok-n">T</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">timer</span><span class="tok-p">(</span><span class="tok-mi">1</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">T_EXPIRED&quot;</span><span class="tok-p">)</span>
+<span class="tok-kd">local</span> <span class="tok-n">T</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">timer</span><span class="tok-p">(</span><span class="tok-mi">1</span><span class="tok-p">,</span><span class="tok-s2">&quot;T_EXPIRED&quot;</span><span class="tok-p">)</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Start</span><span class="tok-p">()</span>
-   <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Just one second...&quot;</span><span class="tok-p">)</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Start</span><span class="tok-p">()</span>
+   <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s2">&quot;Just one second...&quot;</span><span class="tok-p">)</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">set</span><span class="tok-p">(</span><span class="tok-n">T</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Waiting&quot;</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;Waiting&quot;</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">TExpired</span><span class="tok-p">()</span>
-   <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Hello World!&quot;</span><span class="tok-p">)</span>
+<span class="tok-kr">function</span> <span class="tok-nf">TExpired</span><span class="tok-p">()</span>
+   <span class="tok-nb">print</span><span class="tok-p">(</span><span class="tok-s2">&quot;Hello World!&quot;</span><span class="tok-p">)</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">()</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">end</span>
 
 <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-n">Start</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Waiting&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">T_EXPIRED&quot;</span><span class="tok-p">,</span><span class="tok-n">TExpired</span><span class="tok-p">)</span></code></pre>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Waiting&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;T_EXPIRED&quot;</span><span class="tok-p">,</span><span class="tok-n">TExpired</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -2647,7 +2653,7 @@ the shell prompt with:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell">[examples/pingpong ]$ lua main.lua</code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span>[examples/pingpong ]$ lua main.lua</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2655,16 +2661,16 @@ the shell prompt with:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- Main script: main.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- Main script: main.lua</span>
 
-<span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">lunasdl&quot;</span><span class="tok-p">)</span>
+<span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;lunasdl&quot;</span><span class="tok-p">)</span>
 
-<span class="tok-kd">local</span> <span class="tok-n">duration</span> <span class="tok-o">=</span> <span class="tok-nb">tonumber</span><span class="tok-p">(({</span><span class="tok-o">...</span><span class="tok-p">})[</span><span class="tok-mi">1</span><span class="tok-p">])</span> <span class="tok-ow">or</span> <span class="tok-mi">10</span> <span class="tok-c1">-- seconds</span>
-<span class="tok-kd">local</span> <span class="tok-n">interval</span> <span class="tok-o">=</span> <span class="tok-nb">tonumber</span><span class="tok-p">(({</span><span class="tok-o">...</span><span class="tok-p">})[</span><span class="tok-mi">2</span><span class="tok-p">])</span> <span class="tok-ow">or</span> <span class="tok-mi">1</span> <span class="tok-c1">-- seconds</span>
+<span class="tok-kd">local</span> <span class="tok-n">duration</span> <span class="tok-o">=</span> <span class="tok-nb">tonumber</span><span class="tok-p">(({...})[</span><span class="tok-mi">1</span><span class="tok-p">])</span> <span class="tok-ow">or</span> <span class="tok-mi">10</span> <span class="tok-c1">-- seconds</span>
+<span class="tok-kd">local</span> <span class="tok-n">interval</span> <span class="tok-o">=</span> <span class="tok-nb">tonumber</span><span class="tok-p">(({...})[</span><span class="tok-mi">2</span><span class="tok-p">])</span> <span class="tok-ow">or</span> <span class="tok-mi">1</span> <span class="tok-c1">-- seconds</span>
 
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logopen</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">example.log&quot;</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logopen</span><span class="tok-p">(</span><span class="tok-s2">&quot;example.log&quot;</span><span class="tok-p">)</span>
 
-<span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">System&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">system&quot;</span><span class="tok-p">,</span><span class="tok-n">duration</span><span class="tok-p">,</span><span class="tok-n">interval</span><span class="tok-p">))</span></code></pre>
+<span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-s2">&quot;System&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;system&quot;</span><span class="tok-p">,</span><span class="tok-n">duration</span><span class="tok-p">,</span><span class="tok-n">interval</span><span class="tok-p">))</span></code></pre>
 </div>
 </div>
 <div class="imageblock">
@@ -2675,33 +2681,33 @@ the shell prompt with:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- System agent script: system.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- System agent script: system.lua</span>
 
-<span class="tok-kd">local</span> <span class="tok-n">T1</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">timer</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">T1_EXPIRED&quot;</span><span class="tok-p">)</span>
+<span class="tok-kd">local</span> <span class="tok-n">T1</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">timer</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">,</span><span class="tok-s2">&quot;T1_EXPIRED&quot;</span><span class="tok-p">)</span>
 <span class="tok-kd">local</span> <span class="tok-n">player1</span><span class="tok-p">,</span> <span class="tok-n">player2</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Start</span><span class="tok-p">(</span><span class="tok-n">duration</span><span class="tok-p">,</span> <span class="tok-n">interval</span><span class="tok-p">)</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Start</span><span class="tok-p">(</span><span class="tok-n">duration</span><span class="tok-p">,</span> <span class="tok-n">interval</span><span class="tok-p">)</span>
    <span class="tok-kd">local</span> <span class="tok-n">duration</span> <span class="tok-o">=</span> <span class="tok-n">duration</span> <span class="tok-ow">or</span> <span class="tok-mi">10</span>
    <span class="tok-kd">local</span> <span class="tok-n">interval</span> <span class="tok-o">=</span> <span class="tok-n">interval</span> <span class="tok-ow">or</span> <span class="tok-mi">1</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: duration=%u s, interval=%u s&quot;</span><span class="tok-p">,</span><span class="tok-n">name_</span><span class="tok-p">,</span><span class="tok-n">duration</span><span class="tok-p">,</span> <span class="tok-n">interval</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: duration=%u s, interval=%u s&quot;</span><span class="tok-p">,</span><span class="tok-n">name_</span><span class="tok-p">,</span><span class="tok-n">duration</span><span class="tok-p">,</span> <span class="tok-n">interval</span><span class="tok-p">)</span>
 
-   <span class="tok-n">player1</span><span class="tok-o">=</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">player1&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">player&quot;</span><span class="tok-p">,</span><span class="tok-n">interval</span><span class="tok-p">)</span>
-   <span class="tok-n">player2</span><span class="tok-o">=</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">player2&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">player&quot;</span><span class="tok-p">)</span>
+   <span class="tok-n">player1</span><span class="tok-o">=</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;player1&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;player&quot;</span><span class="tok-p">,</span><span class="tok-n">interval</span><span class="tok-p">)</span>
+   <span class="tok-n">player2</span><span class="tok-o">=</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;player2&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;player&quot;</span><span class="tok-p">)</span>
 
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">START&quot;</span><span class="tok-p">,</span> <span class="tok-n">player2</span> <span class="tok-p">},</span> <span class="tok-n">player1</span> <span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;START&quot;</span><span class="tok-p">,</span> <span class="tok-n">player2</span> <span class="tok-p">},</span> <span class="tok-n">player1</span> <span class="tok-p">)</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">set</span><span class="tok-p">(</span><span class="tok-n">T1</span><span class="tok-p">,</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">now</span><span class="tok-p">()</span><span class="tok-o">+</span><span class="tok-n">duration</span><span class="tok-p">)</span>
 
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">ACTIVE&quot;</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;ACTIVE&quot;</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Active_T1Expired</span><span class="tok-p">()</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">STOP&quot;</span> <span class="tok-p">},</span> <span class="tok-n">player1</span> <span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">STOP&quot;</span> <span class="tok-p">},</span> <span class="tok-n">player2</span> <span class="tok-p">)</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Active_T1Expired</span><span class="tok-p">()</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;STOP&quot;</span> <span class="tok-p">},</span> <span class="tok-n">player1</span> <span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;STOP&quot;</span> <span class="tok-p">},</span> <span class="tok-n">player2</span> <span class="tok-p">)</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">()</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">end</span>
 
 <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-n">Start</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">ACTIVE&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">T1_EXPIRED&quot;</span><span class="tok-p">,</span><span class="tok-n">Active_T1Expired</span><span class="tok-p">)</span></code></pre>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;ACTIVE&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;T1_EXPIRED&quot;</span><span class="tok-p">,</span><span class="tok-n">Active_T1Expired</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div class="imageblock">
@@ -2712,59 +2718,59 @@ the shell prompt with:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- Agent script: player.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- Agent script: player.lua</span>
 
 <span class="tok-kd">local</span> <span class="tok-n">interval</span> <span class="tok-o">=</span> <span class="tok-mi">5</span>
-<span class="tok-kd">local</span> <span class="tok-n">T</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">timer</span><span class="tok-p">(</span><span class="tok-n">interval</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">T_EXPIRED&quot;</span><span class="tok-p">)</span>
+<span class="tok-kd">local</span> <span class="tok-n">T</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">timer</span><span class="tok-p">(</span><span class="tok-n">interval</span><span class="tok-p">,</span><span class="tok-s2">&quot;T_EXPIRED&quot;</span><span class="tok-p">)</span>
 <span class="tok-kd">local</span> <span class="tok-n">peer</span>
 
-<span class="tok-kd">local</span> <span class="tok-k">function</span> <span class="tok-nf">PrintSignal</span><span class="tok-p">()</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: Received %s from %u&quot;</span><span class="tok-p">,</span><span class="tok-n">name_</span><span class="tok-p">,</span><span class="tok-n">signame_</span><span class="tok-p">,</span><span class="tok-n">sender_</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+<span class="tok-kd">local</span> <span class="tok-kr">function</span> <span class="tok-nf">PrintSignal</span><span class="tok-p">()</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: Received %s from %u&quot;</span><span class="tok-p">,</span><span class="tok-n">name_</span><span class="tok-p">,</span><span class="tok-n">signame_</span><span class="tok-p">,</span><span class="tok-n">sender_</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-kd">local</span> <span class="tok-k">function</span> <span class="tok-nf">Init</span><span class="tok-p">(</span><span class="tok-n">ping_interval</span><span class="tok-p">)</span>
+<span class="tok-kd">local</span> <span class="tok-kr">function</span> <span class="tok-nf">Init</span><span class="tok-p">(</span><span class="tok-n">ping_interval</span><span class="tok-p">)</span>
    <span class="tok-n">interval</span> <span class="tok-o">=</span> <span class="tok-n">ping_interval</span> <span class="tok-ow">or</span> <span class="tok-n">interval</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Waiting&quot;</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;Waiting&quot;</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-kd">local</span> <span class="tok-k">function</span> <span class="tok-nf">Waiting_Start</span><span class="tok-p">()</span>
+<span class="tok-kd">local</span> <span class="tok-kr">function</span> <span class="tok-nf">Waiting_Start</span><span class="tok-p">()</span>
    <span class="tok-n">PrintSignal</span><span class="tok-p">()</span>
    <span class="tok-n">peer</span> <span class="tok-o">=</span> <span class="tok-n">signal_</span><span class="tok-p">[</span><span class="tok-mi">2</span><span class="tok-p">]</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">set</span><span class="tok-p">(</span><span class="tok-n">T</span><span class="tok-p">,</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">now</span><span class="tok-p">()</span><span class="tok-o">+</span><span class="tok-n">interval</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Initiator&quot;</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;Initiator&quot;</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-kd">local</span> <span class="tok-k">function</span> <span class="tok-nf">Initiator_TExpired</span><span class="tok-p">()</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">PING&quot;</span><span class="tok-p">,</span> <span class="tok-n">self_</span> <span class="tok-p">},</span> <span class="tok-n">peer</span><span class="tok-p">)</span>
+<span class="tok-kd">local</span> <span class="tok-kr">function</span> <span class="tok-nf">Initiator_TExpired</span><span class="tok-p">()</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;PING&quot;</span><span class="tok-p">,</span> <span class="tok-n">self_</span> <span class="tok-p">},</span> <span class="tok-n">peer</span><span class="tok-p">)</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">set</span><span class="tok-p">(</span><span class="tok-n">T</span><span class="tok-p">,</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">now</span><span class="tok-p">()</span><span class="tok-o">+</span><span class="tok-n">interval</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-kd">local</span> <span class="tok-k">function</span> <span class="tok-nf">Initiator_Pong</span><span class="tok-p">()</span>
+<span class="tok-kd">local</span> <span class="tok-kr">function</span> <span class="tok-nf">Initiator_Pong</span><span class="tok-p">()</span>
    <span class="tok-n">PrintSignal</span><span class="tok-p">()</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-kd">local</span> <span class="tok-k">function</span> <span class="tok-nf">Waiting_Ping</span><span class="tok-p">()</span>
+<span class="tok-kd">local</span> <span class="tok-kr">function</span> <span class="tok-nf">Waiting_Ping</span><span class="tok-p">()</span>
    <span class="tok-n">PrintSignal</span><span class="tok-p">()</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">PONG&quot;</span><span class="tok-p">,</span> <span class="tok-n">self_</span> <span class="tok-p">},</span> <span class="tok-n">signal_</span><span class="tok-p">[</span><span class="tok-mi">2</span><span class="tok-p">])</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Responder&quot;</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;PONG&quot;</span><span class="tok-p">,</span> <span class="tok-n">self_</span> <span class="tok-p">},</span> <span class="tok-n">signal_</span><span class="tok-p">[</span><span class="tok-mi">2</span><span class="tok-p">])</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;Responder&quot;</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
 <span class="tok-kd">local</span> <span class="tok-n">Responder_Ping</span> <span class="tok-o">=</span> <span class="tok-n">Waiting_Ping</span>
 
-<span class="tok-kd">local</span> <span class="tok-k">function</span> <span class="tok-nf">Any_Stop</span><span class="tok-p">()</span>
+<span class="tok-kd">local</span> <span class="tok-kr">function</span> <span class="tok-nf">Any_Stop</span><span class="tok-p">()</span>
    <span class="tok-n">PrintSignal</span><span class="tok-p">()</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">()</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">end</span>
 
 
 <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-n">Init</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Waiting&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;</span><span class="tok-s">START&quot;</span><span class="tok-p">,</span> <span class="tok-n">Waiting_Start</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Waiting&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;</span><span class="tok-s">PING&quot;</span><span class="tok-p">,</span> <span class="tok-n">Waiting_Ping</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Initiator&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;</span><span class="tok-s">T_EXPIRED&quot;</span><span class="tok-p">,</span> <span class="tok-n">Initiator_TExpired</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Initiator&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;</span><span class="tok-s">PONG&quot;</span><span class="tok-p">,</span> <span class="tok-n">Initiator_Pong</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Responder&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;</span><span class="tok-s">PING&quot;</span><span class="tok-p">,</span> <span class="tok-n">Responder_Ping</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Any&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;</span><span class="tok-s">STOP&quot;</span><span class="tok-p">,</span> <span class="tok-n">Any_Stop</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">default</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Any&quot;</span><span class="tok-p">)</span></code></pre>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Waiting&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;START&quot;</span><span class="tok-p">,</span> <span class="tok-n">Waiting_Start</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Waiting&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;PING&quot;</span><span class="tok-p">,</span> <span class="tok-n">Waiting_Ping</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Initiator&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;T_EXPIRED&quot;</span><span class="tok-p">,</span> <span class="tok-n">Initiator_TExpired</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Initiator&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;PONG&quot;</span><span class="tok-p">,</span> <span class="tok-n">Initiator_Pong</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Responder&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;PING&quot;</span><span class="tok-p">,</span> <span class="tok-n">Responder_Ping</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Any&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;STOP&quot;</span><span class="tok-p">,</span> <span class="tok-n">Any_Stop</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">default</span><span class="tok-p">(</span><span class="tok-s2">&quot;Any&quot;</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -2792,28 +2798,28 @@ LunaSDL can find the <code>player.lua</code> script in the directory containing 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- Main script: main.lua</span>
-<span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">lunasdl&quot;</span><span class="tok-p">)</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- Main script: main.lua</span>
+<span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;lunasdl&quot;</span><span class="tok-p">)</span>
 
-<span class="tok-kd">local</span> <span class="tok-n">port</span> <span class="tok-o">=</span> <span class="tok-nb">tonumber</span><span class="tok-p">(({</span><span class="tok-o">...</span><span class="tok-p">})[</span><span class="tok-mi">1</span><span class="tok-p">])</span> <span class="tok-ow">or</span> <span class="tok-mi">8080</span>
-<span class="tok-kd">local</span> <span class="tok-n">duration</span> <span class="tok-o">=</span> <span class="tok-nb">tonumber</span><span class="tok-p">(({</span><span class="tok-o">...</span><span class="tok-p">})[</span><span class="tok-mi">2</span><span class="tok-p">])</span> <span class="tok-ow">or</span> <span class="tok-mi">10</span> <span class="tok-c1">-- seconds</span>
-<span class="tok-kd">local</span> <span class="tok-n">interval</span> <span class="tok-o">=</span> <span class="tok-nb">tonumber</span><span class="tok-p">(({</span><span class="tok-o">...</span><span class="tok-p">})[</span><span class="tok-mi">3</span><span class="tok-p">])</span> <span class="tok-c1">-- (or nil) seconds</span>
+<span class="tok-kd">local</span> <span class="tok-n">port</span> <span class="tok-o">=</span> <span class="tok-nb">tonumber</span><span class="tok-p">(({...})[</span><span class="tok-mi">1</span><span class="tok-p">])</span> <span class="tok-ow">or</span> <span class="tok-mi">8080</span>
+<span class="tok-kd">local</span> <span class="tok-n">duration</span> <span class="tok-o">=</span> <span class="tok-nb">tonumber</span><span class="tok-p">(({...})[</span><span class="tok-mi">2</span><span class="tok-p">])</span> <span class="tok-ow">or</span> <span class="tok-mi">10</span> <span class="tok-c1">-- seconds</span>
+<span class="tok-kd">local</span> <span class="tok-n">interval</span> <span class="tok-o">=</span> <span class="tok-nb">tonumber</span><span class="tok-p">(({...})[</span><span class="tok-mi">3</span><span class="tok-p">])</span> <span class="tok-c1">-- (or nil) seconds</span>
 
-<span class="tok-kd">local</span> <span class="tok-n">role</span> <span class="tok-o">=</span> <span class="tok-n">interval</span> <span class="tok-ow">and</span> <span class="tok-s2">&quot;</span><span class="tok-s">initiator&quot;</span> <span class="tok-ow">or</span> <span class="tok-s2">&quot;</span><span class="tok-s">responder&quot;</span>
+<span class="tok-kd">local</span> <span class="tok-n">role</span> <span class="tok-o">=</span> <span class="tok-n">interval</span> <span class="tok-ow">and</span> <span class="tok-s2">&quot;initiator&quot;</span> <span class="tok-ow">or</span> <span class="tok-s2">&quot;responder&quot;</span>
 
-<span class="tok-kd">local</span> <span class="tok-n">ip</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;</span><span class="tok-s">127.0.0.1&quot;</span>
+<span class="tok-kd">local</span> <span class="tok-n">ip</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;127.0.0.1&quot;</span>
 <span class="tok-kd">local</span> <span class="tok-n">remip</span> <span class="tok-o">=</span> <span class="tok-n">ip</span>
 <span class="tok-kd">local</span> <span class="tok-n">remport</span> <span class="tok-o">=</span> <span class="tok-n">port</span><span class="tok-o">+</span><span class="tok-mi">1</span>
 
-<span class="tok-k">if</span> <span class="tok-n">role</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;</span><span class="tok-s">initiator&quot;</span> <span class="tok-k">then</span> <span class="tok-c1">--swap UDP address</span>
+<span class="tok-kr">if</span> <span class="tok-n">role</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;initiator&quot;</span> <span class="tok-kr">then</span> <span class="tok-c1">--swap UDP address</span>
    <span class="tok-n">port</span><span class="tok-p">,</span> <span class="tok-n">remport</span> <span class="tok-o">=</span> <span class="tok-n">remport</span><span class="tok-p">,</span> <span class="tok-n">port</span>
    <span class="tok-n">ip</span><span class="tok-p">,</span> <span class="tok-n">remip</span> <span class="tok-o">=</span> <span class="tok-n">remip</span><span class="tok-p">,</span> <span class="tok-n">ip</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logopen</span><span class="tok-p">(</span><span class="tok-nb">string.format</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s.log&quot;</span><span class="tok-p">,</span><span class="tok-n">role</span><span class="tok-p">))</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logopen</span><span class="tok-p">(</span><span class="tok-nb">string.format</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s.log&quot;</span><span class="tok-p">,</span><span class="tok-n">role</span><span class="tok-p">))</span>
 <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">traceson</span><span class="tok-p">()</span>
 
-<span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">system&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">system&quot;</span><span class="tok-p">,</span><span class="tok-n">ip</span><span class="tok-p">,</span><span class="tok-n">port</span><span class="tok-p">,</span><span class="tok-n">remip</span><span class="tok-p">,</span><span class="tok-n">remport</span><span class="tok-p">,</span><span class="tok-n">duration</span><span class="tok-p">,</span><span class="tok-n">interval</span><span class="tok-p">))</span></code></pre>
+<span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-s2">&quot;system&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;system&quot;</span><span class="tok-p">,</span><span class="tok-n">ip</span><span class="tok-p">,</span><span class="tok-n">port</span><span class="tok-p">,</span><span class="tok-n">remip</span><span class="tok-p">,</span><span class="tok-n">remport</span><span class="tok-p">,</span><span class="tok-n">duration</span><span class="tok-p">,</span><span class="tok-n">interval</span><span class="tok-p">))</span></code></pre>
 </div>
 </div>
 <div class="imageblock">
@@ -2824,90 +2830,90 @@ LunaSDL can find the <code>player.lua</code> script in the directory containing 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- System agent script: system.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- System agent script: system.lua</span>
 
-<span class="tok-n">socket</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">socket&quot;</span><span class="tok-p">)</span>
+<span class="tok-n">socket</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;socket&quot;</span><span class="tok-p">)</span>
 
-<span class="tok-kd">local</span> <span class="tok-n">T1</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">timer</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">T1&quot;</span><span class="tok-p">)</span>
+<span class="tok-kd">local</span> <span class="tok-n">T1</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">timer</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">,</span><span class="tok-s2">&quot;T1&quot;</span><span class="tok-p">)</span>
 <span class="tok-kd">local</span> <span class="tok-n">player</span>
 <span class="tok-kd">local</span> <span class="tok-n">s</span><span class="tok-p">,</span> <span class="tok-n">peerip</span><span class="tok-p">,</span> <span class="tok-n">peerport</span><span class="tok-p">,</span> <span class="tok-n">role</span>
 
 
-<span class="tok-kd">local</span> <span class="tok-k">function</span> <span class="tok-nf">udprecv</span><span class="tok-p">()</span> <span class="tok-c1">-- socket &#39;read&#39; callback</span>
+<span class="tok-kd">local</span> <span class="tok-kr">function</span> <span class="tok-nf">udprecv</span><span class="tok-p">()</span> <span class="tok-c1">-- socket &#39;read&#39; callback</span>
    <span class="tok-c1">-- get the UDP datagram and the sender&#39;s address</span>
    <span class="tok-kd">local</span> <span class="tok-n">msg</span><span class="tok-p">,</span> <span class="tok-n">fromip</span><span class="tok-p">,</span> <span class="tok-n">fromport</span> <span class="tok-o">=</span> <span class="tok-n">s</span><span class="tok-p">:</span><span class="tok-n">receivefrom</span><span class="tok-p">()</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">received &#39;%s&#39; from %s:%s&quot;</span><span class="tok-p">,</span><span class="tok-n">msg</span><span class="tok-p">,</span><span class="tok-n">fromip</span><span class="tok-p">,</span><span class="tok-n">fromport</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;received &#39;%s&#39; from %s:%s&quot;</span><span class="tok-p">,</span><span class="tok-n">msg</span><span class="tok-p">,</span><span class="tok-n">fromip</span><span class="tok-p">,</span><span class="tok-n">fromport</span><span class="tok-p">)</span>
 
    <span class="tok-c1">-- check that it is an expected message</span>
-   <span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">msg</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;</span><span class="tok-s">PING&quot;</span> <span class="tok-ow">or</span> <span class="tok-n">msg</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;</span><span class="tok-s">PONG&quot;</span> <span class="tok-ow">or</span> <span class="tok-n">msg</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;</span><span class="tok-s">STOP&quot;</span><span class="tok-p">)</span>
+   <span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">msg</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;PING&quot;</span> <span class="tok-ow">or</span> <span class="tok-n">msg</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;PONG&quot;</span> <span class="tok-ow">or</span> <span class="tok-n">msg</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;STOP&quot;</span><span class="tok-p">)</span>
 
    <span class="tok-c1">-- send the corresponding signal to the local player agent</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-n">msg</span><span class="tok-p">,</span> <span class="tok-n">self_</span> <span class="tok-p">},</span> <span class="tok-n">player</span><span class="tok-p">)</span>
-   <span class="tok-k">if</span> <span class="tok-n">msg</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;</span><span class="tok-s">STOP&quot;</span> <span class="tok-k">then</span>
+   <span class="tok-kr">if</span> <span class="tok-n">msg</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;STOP&quot;</span> <span class="tok-kr">then</span>
       <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">()</span>
-   <span class="tok-k">end</span>
-<span class="tok-k">end</span>
+   <span class="tok-kr">end</span>
+<span class="tok-kr">end</span>
 
 
-<span class="tok-k">function</span> <span class="tok-nf">Start</span><span class="tok-p">(</span><span class="tok-n">ip</span><span class="tok-p">,</span> <span class="tok-n">port</span><span class="tok-p">,</span> <span class="tok-n">remip</span><span class="tok-p">,</span> <span class="tok-n">remport</span><span class="tok-p">,</span> <span class="tok-n">duration</span><span class="tok-p">,</span> <span class="tok-n">ping_interval</span><span class="tok-p">)</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Start</span><span class="tok-p">(</span><span class="tok-n">ip</span><span class="tok-p">,</span> <span class="tok-n">port</span><span class="tok-p">,</span> <span class="tok-n">remip</span><span class="tok-p">,</span> <span class="tok-n">remport</span><span class="tok-p">,</span> <span class="tok-n">duration</span><span class="tok-p">,</span> <span class="tok-n">ping_interval</span><span class="tok-p">)</span>
    <span class="tok-n">peerip</span> <span class="tok-o">=</span> <span class="tok-n">remip</span>
    <span class="tok-n">peerport</span> <span class="tok-o">=</span> <span class="tok-n">remport</span>
-   <span class="tok-n">role</span> <span class="tok-o">=</span> <span class="tok-n">ping_interval</span> <span class="tok-ow">and</span> <span class="tok-s2">&quot;</span><span class="tok-s">initiator&quot;</span> <span class="tok-ow">or</span> <span class="tok-s2">&quot;</span><span class="tok-s">responder&quot;</span>
+   <span class="tok-n">role</span> <span class="tok-o">=</span> <span class="tok-n">ping_interval</span> <span class="tok-ow">and</span> <span class="tok-s2">&quot;initiator&quot;</span> <span class="tok-ow">or</span> <span class="tok-s2">&quot;responder&quot;</span>
 
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">starting %s at %s:%s (peer system is at %s:%s)&quot;</span><span class="tok-p">,</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;starting %s at %s:%s (peer system is at %s:%s)&quot;</span><span class="tok-p">,</span>
          <span class="tok-n">role</span><span class="tok-p">,</span><span class="tok-n">ip</span><span class="tok-p">,</span><span class="tok-n">port</span><span class="tok-p">,</span><span class="tok-n">peerip</span><span class="tok-p">,</span><span class="tok-n">peerport</span><span class="tok-p">)</span>
 
    <span class="tok-c1">-- create a UDP socket and bind it to ip:port</span>
    <span class="tok-n">s</span> <span class="tok-o">=</span> <span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">socket</span><span class="tok-p">.</span><span class="tok-n">udp</span><span class="tok-p">())</span>
    <span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">s</span><span class="tok-p">:</span><span class="tok-n">setsockname</span><span class="tok-p">(</span><span class="tok-n">ip</span><span class="tok-p">,</span><span class="tok-n">port</span><span class="tok-p">))</span>
-   <span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">s</span><span class="tok-p">:</span><span class="tok-n">setoption</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">reuseaddr&quot;</span><span class="tok-p">,</span><span class="tok-kc">true</span><span class="tok-p">))</span>
+   <span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">s</span><span class="tok-p">:</span><span class="tok-n">setoption</span><span class="tok-p">(</span><span class="tok-s2">&quot;reuseaddr&quot;</span><span class="tok-p">,</span><span class="tok-kc">true</span><span class="tok-p">))</span>
 
    <span class="tok-c1">-- register the socket in the event loop</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">register</span><span class="tok-p">(</span><span class="tok-n">s</span><span class="tok-p">,</span> <span class="tok-n">udprecv</span><span class="tok-p">)</span>
 
    <span class="tok-c1">-- create the player agent</span>
-   <span class="tok-n">player</span><span class="tok-o">=</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">player&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">pingpong.player&quot;</span><span class="tok-p">,</span> <span class="tok-n">ping_interval</span><span class="tok-p">)</span> <span class="tok-c1">--</span>
+   <span class="tok-n">player</span><span class="tok-o">=</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;player&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;pingpong.player&quot;</span><span class="tok-p">,</span> <span class="tok-n">ping_interval</span><span class="tok-p">)</span> <span class="tok-c1">--</span>
 
    <span class="tok-c1">-- send it the start signal (initiator side only)</span>
-   <span class="tok-k">if</span> <span class="tok-n">role</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;</span><span class="tok-s">initiator&quot;</span> <span class="tok-k">then</span>
-      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">START&quot;</span><span class="tok-p">,</span> <span class="tok-n">self_</span> <span class="tok-p">},</span> <span class="tok-n">player</span> <span class="tok-p">)</span>
-   <span class="tok-k">end</span>
+   <span class="tok-kr">if</span> <span class="tok-n">role</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;initiator&quot;</span> <span class="tok-kr">then</span>
+      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;START&quot;</span><span class="tok-p">,</span> <span class="tok-n">self_</span> <span class="tok-p">},</span> <span class="tok-n">player</span> <span class="tok-p">)</span>
+   <span class="tok-kr">end</span>
 
    <span class="tok-c1">-- start the overall timer</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">set</span><span class="tok-p">(</span><span class="tok-n">T1</span><span class="tok-p">,</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">now</span><span class="tok-p">()</span><span class="tok-o">+</span><span class="tok-n">duration</span><span class="tok-p">)</span>
 
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Active&quot;</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;Active&quot;</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
 
-<span class="tok-k">function</span> <span class="tok-nf">Active_T1Expired</span><span class="tok-p">()</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">STOP&quot;</span> <span class="tok-p">},</span> <span class="tok-n">player</span> <span class="tok-p">)</span>
-   <span class="tok-n">s</span><span class="tok-p">:</span><span class="tok-n">sendto</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">STOP&quot;</span><span class="tok-p">,</span><span class="tok-n">peerip</span><span class="tok-p">,</span><span class="tok-n">peerport</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">(</span><span class="tok-k">function</span> <span class="tok-p">()</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">deregister</span><span class="tok-p">(</span><span class="tok-n">s</span><span class="tok-p">)</span> <span class="tok-n">s</span><span class="tok-p">:</span><span class="tok-n">close</span><span class="tok-p">()</span> <span class="tok-k">end</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Active_T1Expired</span><span class="tok-p">()</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;STOP&quot;</span> <span class="tok-p">},</span> <span class="tok-n">player</span> <span class="tok-p">)</span>
+   <span class="tok-n">s</span><span class="tok-p">:</span><span class="tok-n">sendto</span><span class="tok-p">(</span><span class="tok-s2">&quot;STOP&quot;</span><span class="tok-p">,</span><span class="tok-n">peerip</span><span class="tok-p">,</span><span class="tok-n">peerport</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">(</span><span class="tok-kr">function</span> <span class="tok-p">()</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">deregister</span><span class="tok-p">(</span><span class="tok-n">s</span><span class="tok-p">)</span> <span class="tok-n">s</span><span class="tok-p">:</span><span class="tok-n">close</span><span class="tok-p">()</span> <span class="tok-kr">end</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
 
-<span class="tok-k">function</span> <span class="tok-nf">Active_Any</span><span class="tok-p">()</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Active_Any</span><span class="tok-p">()</span>
    <span class="tok-c1">-- signal from local player, redirect signal name to peer system</span>
    <span class="tok-n">s</span><span class="tok-p">:</span><span class="tok-n">sendto</span><span class="tok-p">(</span><span class="tok-n">signame_</span><span class="tok-p">,</span><span class="tok-n">peerip</span><span class="tok-p">,</span><span class="tok-n">peerport</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">end</span>
 
 
 <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-n">Start</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">T1&quot;</span><span class="tok-p">,</span><span class="tok-n">Active_T1Expired</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">*&quot;</span><span class="tok-p">,</span><span class="tok-n">Active_Any</span><span class="tok-p">)</span></code></pre>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;T1&quot;</span><span class="tok-p">,</span><span class="tok-n">Active_T1Expired</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;*&quot;</span><span class="tok-p">,</span><span class="tok-n">Active_Any</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"># Responder shell script
+<pre class="pygments highlight"><code data-lang="shell"><span></span># Responder shell script
 export LUNASDL_PATH=&quot;../?.lua;;&quot;
 lua main.lua 8090 20 # port duration</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"># Initiator shell script
+<pre class="pygments highlight"><code data-lang="shell"><span></span># Initiator shell script
 export LUNASDL_PATH=&quot;../?.lua;;&quot;
 lua main.lua 8090 10 1 # responder_port duration ping_interval</code></pre>
 </div>
@@ -2938,75 +2944,75 @@ with&#8230;&#8203; well.. you&#8217;ll figure out.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- Main script: main.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- Main script: main.lua</span>
 
-<span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">lunasdl&quot;</span><span class="tok-p">)</span>
+<span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;lunasdl&quot;</span><span class="tok-p">)</span>
 
-<span class="tok-kd">local</span> <span class="tok-n">host</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;</span><span class="tok-s">www.w3.org&quot;</span> <span class="tok-c1">-- web site where to download the pages</span>
+<span class="tok-kd">local</span> <span class="tok-n">host</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;www.w3.org&quot;</span> <span class="tok-c1">-- web site where to download the pages</span>
 
 <span class="tok-kd">local</span> <span class="tok-n">pages</span> <span class="tok-o">=</span> <span class="tok-p">{</span> <span class="tok-c1">-- list of desired pages</span>
- <span class="tok-s2">&quot;</span><span class="tok-s">/TR/html401/html40.txt&quot;</span><span class="tok-p">,</span>
- <span class="tok-s2">&quot;</span><span class="tok-s">/TR/2002/REC-xhtml1-20020801/xhtml1.pdf&quot;</span><span class="tok-p">,</span>
- <span class="tok-s2">&quot;</span><span class="tok-s">/TR/REC-html32.html&quot;</span><span class="tok-p">,</span>
- <span class="tok-s2">&quot;</span><span class="tok-s">/TR/2000/REC-DOM-Level-2-Core-20001113/DOM2-Core.txt&quot;</span>
+ <span class="tok-s2">&quot;/TR/html401/html40.txt&quot;</span><span class="tok-p">,</span>
+ <span class="tok-s2">&quot;/TR/2002/REC-xhtml1-20020801/xhtml1.pdf&quot;</span><span class="tok-p">,</span>
+ <span class="tok-s2">&quot;/TR/REC-html32.html&quot;</span><span class="tok-p">,</span>
+ <span class="tok-s2">&quot;/TR/2000/REC-DOM-Level-2-Core-20001113/DOM2-Core.txt&quot;</span>
 <span class="tok-p">}</span>
 
 <span class="tok-c1">--sdl.logopen(&quot;example.log&quot;)</span>
 
-<span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-s2">&quot;</span><span class="tok-s">system&quot;</span><span class="tok-p">,</span> <span class="tok-n">host</span><span class="tok-p">,</span> <span class="tok-n">pages</span><span class="tok-p">))</span></code></pre>
+<span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-s2">&quot;system&quot;</span><span class="tok-p">,</span> <span class="tok-n">host</span><span class="tok-p">,</span> <span class="tok-n">pages</span><span class="tok-p">))</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- System agent: system.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- System agent: system.lua</span>
 
 <span class="tok-kd">local</span> <span class="tok-n">ts</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">now</span><span class="tok-p">()</span>
 
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-k">function</span> <span class="tok-p">(</span><span class="tok-n">host</span><span class="tok-p">,</span> <span class="tok-n">pages</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: Creating agents&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">)</span>
-   <span class="tok-k">for</span> <span class="tok-n">_</span><span class="tok-p">,</span><span class="tok-n">file</span> <span class="tok-k">in</span> <span class="tok-nb">ipairs</span><span class="tok-p">(</span><span class="tok-n">pages</span><span class="tok-p">)</span> <span class="tok-k">do</span>
-      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">download&quot;</span><span class="tok-p">,</span> <span class="tok-n">host</span><span class="tok-p">,</span> <span class="tok-n">file</span><span class="tok-p">)</span>
-   <span class="tok-k">end</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">(</span><span class="tok-k">function</span> <span class="tok-p">()</span>
-         <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: Elapsed %.1f seconds&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">since</span><span class="tok-p">(</span><span class="tok-n">ts</span><span class="tok-p">))</span>
-      <span class="tok-k">end</span> <span class="tok-p">)</span>
-   <span class="tok-k">end</span><span class="tok-p">)</span></code></pre>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-kr">function</span> <span class="tok-p">(</span><span class="tok-n">host</span><span class="tok-p">,</span> <span class="tok-n">pages</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: Creating agents&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">)</span>
+   <span class="tok-kr">for</span> <span class="tok-n">_</span><span class="tok-p">,</span><span class="tok-n">file</span> <span class="tok-kr">in</span> <span class="tok-nb">ipairs</span><span class="tok-p">(</span><span class="tok-n">pages</span><span class="tok-p">)</span> <span class="tok-kr">do</span>
+      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span><span class="tok-s2">&quot;download&quot;</span><span class="tok-p">,</span> <span class="tok-n">host</span><span class="tok-p">,</span> <span class="tok-n">file</span><span class="tok-p">)</span>
+   <span class="tok-kr">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">(</span><span class="tok-kr">function</span> <span class="tok-p">()</span>
+         <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: Elapsed %.1f seconds&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">since</span><span class="tok-p">(</span><span class="tok-n">ts</span><span class="tok-p">))</span>
+      <span class="tok-kr">end</span> <span class="tok-p">)</span>
+   <span class="tok-kr">end</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- Agent script: download.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- Agent script: download.lua</span>
 
-<span class="tok-n">socket</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">socket&quot;</span><span class="tok-p">)</span>
+<span class="tok-n">socket</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;socket&quot;</span><span class="tok-p">)</span>
 
 <span class="tok-kd">local</span> <span class="tok-n">nread</span> <span class="tok-o">=</span> <span class="tok-mi">0</span> <span class="tok-c1">-- bytes read</span>
 <span class="tok-kd">local</span> <span class="tok-n">bs</span> <span class="tok-o">=</span> <span class="tok-mi">2</span><span class="tok-o">^</span><span class="tok-mi">10</span> <span class="tok-c1">-- block size</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Callback</span><span class="tok-p">(</span><span class="tok-n">c</span><span class="tok-p">)</span> <span class="tok-c1">-- socket &#39;read&#39; callback</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Callback</span><span class="tok-p">(</span><span class="tok-n">c</span><span class="tok-p">)</span> <span class="tok-c1">-- socket &#39;read&#39; callback</span>
    <span class="tok-kd">local</span> <span class="tok-n">s</span><span class="tok-p">,</span> <span class="tok-n">status</span><span class="tok-p">,</span> <span class="tok-n">partial</span> <span class="tok-o">=</span> <span class="tok-n">c</span><span class="tok-p">:</span><span class="tok-n">receive</span><span class="tok-p">(</span><span class="tok-n">bs</span><span class="tok-p">)</span>
-   <span class="tok-k">if</span> <span class="tok-n">status</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;</span><span class="tok-s">closed&quot;</span> <span class="tok-k">then</span>
-      <span class="tok-k">if</span> <span class="tok-n">partial</span> <span class="tok-k">then</span> <span class="tok-n">nread</span> <span class="tok-o">=</span> <span class="tok-n">nread</span> <span class="tok-o">+</span> <span class="tok-o">#</span><span class="tok-n">partial</span> <span class="tok-k">end</span>
+   <span class="tok-kr">if</span> <span class="tok-n">status</span> <span class="tok-o">==</span> <span class="tok-s2">&quot;closed&quot;</span> <span class="tok-kr">then</span>
+      <span class="tok-kr">if</span> <span class="tok-n">partial</span> <span class="tok-kr">then</span> <span class="tok-n">nread</span> <span class="tok-o">=</span> <span class="tok-n">nread</span> <span class="tok-o">+</span> <span class="tok-o">#</span><span class="tok-n">partial</span> <span class="tok-kr">end</span>
       <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">deregister</span><span class="tok-p">(</span><span class="tok-n">c</span><span class="tok-p">)</span>
       <span class="tok-n">c</span><span class="tok-p">:</span><span class="tok-n">close</span><span class="tok-p">()</span>
-      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: read %u bytes (finished)&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">nread</span><span class="tok-p">)</span>
-      <span class="tok-k">return</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">()</span>
-   <span class="tok-k">end</span>
+      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: read %u bytes (finished)&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">nread</span><span class="tok-p">)</span>
+      <span class="tok-kr">return</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">()</span>
+   <span class="tok-kr">end</span>
    <span class="tok-n">s</span> <span class="tok-o">=</span> <span class="tok-n">s</span> <span class="tok-ow">or</span> <span class="tok-n">partial</span>
    <span class="tok-n">nread</span> <span class="tok-o">=</span> <span class="tok-n">nread</span> <span class="tok-o">+</span> <span class="tok-o">#</span><span class="tok-n">s</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: read %u bytes&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">nread</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: read %u bytes&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">nread</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-k">function</span> <span class="tok-p">(</span><span class="tok-n">host</span><span class="tok-p">,</span> <span class="tok-n">file</span><span class="tok-p">)</span>
-      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: connecting to %s:80&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">host</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-kr">function</span> <span class="tok-p">(</span><span class="tok-n">host</span><span class="tok-p">,</span> <span class="tok-n">file</span><span class="tok-p">)</span>
+      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: connecting to %s:80&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">host</span><span class="tok-p">)</span>
       <span class="tok-kd">local</span> <span class="tok-n">c</span> <span class="tok-o">=</span> <span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">socket</span><span class="tok-p">.</span><span class="tok-n">connect</span><span class="tok-p">(</span><span class="tok-n">host</span><span class="tok-p">,</span> <span class="tok-mi">80</span><span class="tok-p">))</span>
 
       <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">register</span><span class="tok-p">(</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">Callback</span><span class="tok-p">)</span>
 
-      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: retrieving &#39;%s&#39;&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">file</span><span class="tok-p">)</span>
-      <span class="tok-n">c</span><span class="tok-p">:</span><span class="tok-n">send</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">GET &quot;</span> <span class="tok-o">..</span> <span class="tok-n">file</span> <span class="tok-o">..</span><span class="tok-s2">&quot;</span><span class="tok-s"> HTTP/1.0</span><span class="tok-se">\r\n\r\n</span><span class="tok-s">&quot;</span><span class="tok-p">)</span>
+      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: retrieving &#39;%s&#39;&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">file</span><span class="tok-p">)</span>
+      <span class="tok-n">c</span><span class="tok-p">:</span><span class="tok-n">send</span><span class="tok-p">(</span><span class="tok-s2">&quot;GET &quot;</span> <span class="tok-o">..</span> <span class="tok-n">file</span> <span class="tok-o">..</span><span class="tok-s2">&quot; HTTP/1.0</span><span class="tok-se">\r\n\r\n</span><span class="tok-s2">&quot;</span><span class="tok-p">)</span>
 
-      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">_&quot;</span><span class="tok-p">)</span>
-   <span class="tok-k">end</span><span class="tok-p">)</span></code></pre>
+      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;_&quot;</span><span class="tok-p">)</span>
+   <span class="tok-kr">end</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -3027,76 +3033,76 @@ and uses the 'get' and 'set' functions exported by it.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- Main script: main.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- Main script: main.lua</span>
 
-<span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">lunasdl&quot;</span><span class="tok-p">)</span>
+<span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;lunasdl&quot;</span><span class="tok-p">)</span>
 
 <span class="tok-c1">-- get the no. of entries in the database</span>
-<span class="tok-kd">local</span> <span class="tok-n">n_entries</span> <span class="tok-o">=</span> <span class="tok-nb">tonumber</span><span class="tok-p">(({</span><span class="tok-o">...</span><span class="tok-p">})[</span><span class="tok-mi">1</span><span class="tok-p">])</span> <span class="tok-ow">or</span> <span class="tok-mi">1000</span>
+<span class="tok-kd">local</span> <span class="tok-n">n_entries</span> <span class="tok-o">=</span> <span class="tok-nb">tonumber</span><span class="tok-p">(({...})[</span><span class="tok-mi">1</span><span class="tok-p">])</span> <span class="tok-ow">or</span> <span class="tok-mi">1000</span>
 
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logopen</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">example.log&quot;</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logopen</span><span class="tok-p">(</span><span class="tok-s2">&quot;example.log&quot;</span><span class="tok-p">)</span>
 
-<span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">system&quot;</span><span class="tok-p">,</span> <span class="tok-n">n_entries</span><span class="tok-p">))</span></code></pre>
+<span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span><span class="tok-s2">&quot;system&quot;</span><span class="tok-p">,</span> <span class="tok-n">n_entries</span><span class="tok-p">))</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- System agent script: system.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- System agent script: system.lua</span>
 
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-k">function</span> <span class="tok-p">(</span><span class="tok-n">n_entries</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-kr">function</span> <span class="tok-p">(</span><span class="tok-n">n_entries</span><span class="tok-p">)</span>
    <span class="tok-c1">-- create the database process</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Database&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">database&quot;</span><span class="tok-p">,</span><span class="tok-n">n_entries</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;Database&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;database&quot;</span><span class="tok-p">,</span><span class="tok-n">n_entries</span><span class="tok-p">)</span>
 
    <span class="tok-c1">-- create the user process and send it a START signal</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">User&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">user&quot;</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">START&quot;</span> <span class="tok-p">},</span> <span class="tok-n">offspring_</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;User&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;user&quot;</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;START&quot;</span> <span class="tok-p">},</span> <span class="tok-n">offspring_</span><span class="tok-p">)</span>
 
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">()</span>
-<span class="tok-k">end</span><span class="tok-p">)</span></code></pre>
+<span class="tok-kr">end</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- Agent script: database.lua (database process)</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- Agent script: database.lua (database process)</span>
 
 <span class="tok-kd">local</span> <span class="tok-n">database</span> <span class="tok-o">=</span> <span class="tok-p">{}</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">set</span><span class="tok-p">(</span><span class="tok-n">i</span><span class="tok-p">,</span><span class="tok-n">val</span><span class="tok-p">)</span> <span class="tok-c1">-- &#39;set&#39; method</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: set(%u)=&#39;%s&#39;&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-n">val</span><span class="tok-p">)</span>
+<span class="tok-kr">function</span> <span class="tok-nf">set</span><span class="tok-p">(</span><span class="tok-n">i</span><span class="tok-p">,</span><span class="tok-n">val</span><span class="tok-p">)</span> <span class="tok-c1">-- &#39;set&#39; method</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: set(%u)=&#39;%s&#39;&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-n">val</span><span class="tok-p">)</span>
    <span class="tok-n">database</span><span class="tok-p">[</span><span class="tok-n">i</span><span class="tok-p">]</span><span class="tok-o">=</span><span class="tok-n">val</span>
-   <span class="tok-k">return</span> <span class="tok-n">database</span><span class="tok-p">[</span><span class="tok-n">i</span><span class="tok-p">]</span>
-<span class="tok-k">end</span>
+   <span class="tok-kr">return</span> <span class="tok-n">database</span><span class="tok-p">[</span><span class="tok-n">i</span><span class="tok-p">]</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">get</span><span class="tok-p">(</span><span class="tok-n">i</span><span class="tok-p">)</span> <span class="tok-c1">-- &#39;get&#39; method</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: get(%u)=&#39;%s&#39;&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-n">database</span><span class="tok-p">[</span><span class="tok-n">i</span><span class="tok-p">])</span>
-   <span class="tok-k">return</span> <span class="tok-n">database</span><span class="tok-p">[</span><span class="tok-n">i</span><span class="tok-p">]</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">function</span> <span class="tok-nf">get</span><span class="tok-p">(</span><span class="tok-n">i</span><span class="tok-p">)</span> <span class="tok-c1">-- &#39;get&#39; method</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: get(%u)=&#39;%s&#39;&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-n">database</span><span class="tok-p">[</span><span class="tok-n">i</span><span class="tok-p">])</span>
+   <span class="tok-kr">return</span> <span class="tok-n">database</span><span class="tok-p">[</span><span class="tok-n">i</span><span class="tok-p">]</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-k">function</span><span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-kr">function</span><span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-p">)</span>
    <span class="tok-c1">-- populate the database</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: populating database with %u entries&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">n</span><span class="tok-p">)</span>
-   <span class="tok-k">for</span> <span class="tok-n">i</span><span class="tok-o">=</span><span class="tok-mi">1</span><span class="tok-p">,</span><span class="tok-n">n</span> <span class="tok-k">do</span>
-      <span class="tok-n">database</span><span class="tok-p">[</span><span class="tok-n">i</span><span class="tok-p">]</span> <span class="tok-o">=</span> <span class="tok-nb">string.format</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">entry no %u&quot;</span><span class="tok-p">,</span><span class="tok-n">i</span><span class="tok-p">);</span>
-   <span class="tok-k">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: populating database with %u entries&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">n</span><span class="tok-p">)</span>
+   <span class="tok-kr">for</span> <span class="tok-n">i</span><span class="tok-o">=</span><span class="tok-mi">1</span><span class="tok-p">,</span><span class="tok-n">n</span> <span class="tok-kr">do</span>
+      <span class="tok-n">database</span><span class="tok-p">[</span><span class="tok-n">i</span><span class="tok-p">]</span> <span class="tok-o">=</span> <span class="tok-nb">string.format</span><span class="tok-p">(</span><span class="tok-s2">&quot;entry no %u&quot;</span><span class="tok-p">,</span><span class="tok-n">i</span><span class="tok-p">);</span>
+   <span class="tok-kr">end</span>
 
    <span class="tok-c1">-- export the get/set functions for remote calls</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">exportfunc</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">set&quot;</span><span class="tok-p">,</span><span class="tok-n">set</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">exportfunc</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">get&quot;</span><span class="tok-p">,</span><span class="tok-n">get</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">exportfunc</span><span class="tok-p">(</span><span class="tok-s2">&quot;set&quot;</span><span class="tok-p">,</span><span class="tok-n">set</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">exportfunc</span><span class="tok-p">(</span><span class="tok-s2">&quot;get&quot;</span><span class="tok-p">,</span><span class="tok-n">get</span><span class="tok-p">)</span>
 
    <span class="tok-c1">-- not important in this example</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">_&quot;</span><span class="tok-p">)</span>
-<span class="tok-k">end</span><span class="tok-p">)</span></code></pre>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;_&quot;</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- Agent script: user.lua (database user)</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- Agent script: user.lua (database user)</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Start</span><span class="tok-p">()</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Start</span><span class="tok-p">()</span>
    <span class="tok-c1">-- find the pid of the agent named &quot;Database&quot; in this block:</span>
-   <span class="tok-kd">local</span> <span class="tok-n">database</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">pidof</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Database&quot;</span><span class="tok-p">)</span>
-   <span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">database</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">cannot find database&quot;</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: Database pid is %u&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">database</span><span class="tok-p">)</span>
+   <span class="tok-kd">local</span> <span class="tok-n">database</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">pidof</span><span class="tok-p">(</span><span class="tok-s2">&quot;Database&quot;</span><span class="tok-p">)</span>
+   <span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">database</span><span class="tok-p">,</span><span class="tok-s2">&quot;cannot find database&quot;</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: Database pid is %u&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">database</span><span class="tok-p">)</span>
 
    <span class="tok-kd">local</span> <span class="tok-n">ts</span>
    <span class="tok-n">ts</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">now</span><span class="tok-p">()</span>
@@ -3104,27 +3110,27 @@ and uses the 'get' and 'set' functions exported by it.</p>
    <span class="tok-c1">-- get an entry from the database</span>
    <span class="tok-n">ts</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">now</span><span class="tok-p">()</span>
    <span class="tok-kd">local</span> <span class="tok-n">i</span> <span class="tok-o">=</span> <span class="tok-mi">123</span>
-   <span class="tok-kd">local</span> <span class="tok-n">val</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">remfunc</span><span class="tok-p">(</span><span class="tok-n">database</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">get&quot;</span><span class="tok-p">,</span><span class="tok-n">i</span><span class="tok-p">)</span>
+   <span class="tok-kd">local</span> <span class="tok-n">val</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">remfunc</span><span class="tok-p">(</span><span class="tok-n">database</span><span class="tok-p">,</span><span class="tok-s2">&quot;get&quot;</span><span class="tok-p">,</span><span class="tok-n">i</span><span class="tok-p">)</span>
    <span class="tok-kd">local</span> <span class="tok-n">elapsed</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">since</span><span class="tok-p">(</span><span class="tok-n">ts</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: entry %u is &#39;%s&#39; (retrieved in %.6f s)&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-n">val</span><span class="tok-p">,</span> <span class="tok-n">elapsed</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: entry %u is &#39;%s&#39; (retrieved in %.6f s)&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-n">val</span><span class="tok-p">,</span> <span class="tok-n">elapsed</span><span class="tok-p">)</span>
 
    <span class="tok-c1">-- overwrite it in the database...</span>
    <span class="tok-n">ts</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">now</span><span class="tok-p">()</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">remfunc</span><span class="tok-p">(</span><span class="tok-n">database</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">set&quot;</span><span class="tok-p">,</span><span class="tok-n">i</span><span class="tok-p">,</span><span class="tok-nb">string.format</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">hello %u %u %u&quot;</span><span class="tok-p">,</span><span class="tok-mi">1</span><span class="tok-p">,</span><span class="tok-mi">2</span><span class="tok-p">,</span><span class="tok-mi">3</span><span class="tok-p">))</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: entry %u set in %.6f s&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">since</span><span class="tok-p">(</span><span class="tok-n">ts</span><span class="tok-p">))</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">remfunc</span><span class="tok-p">(</span><span class="tok-n">database</span><span class="tok-p">,</span><span class="tok-s2">&quot;set&quot;</span><span class="tok-p">,</span><span class="tok-n">i</span><span class="tok-p">,</span><span class="tok-nb">string.format</span><span class="tok-p">(</span><span class="tok-s2">&quot;hello %u %u %u&quot;</span><span class="tok-p">,</span><span class="tok-mi">1</span><span class="tok-p">,</span><span class="tok-mi">2</span><span class="tok-p">,</span><span class="tok-mi">3</span><span class="tok-p">))</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: entry %u set in %.6f s&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">since</span><span class="tok-p">(</span><span class="tok-n">ts</span><span class="tok-p">))</span>
 
    <span class="tok-c1">-- ... and then get it again</span>
    <span class="tok-n">ts</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">now</span><span class="tok-p">()</span>
-   <span class="tok-n">val</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">remfunc</span><span class="tok-p">(</span><span class="tok-n">database</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">get&quot;</span><span class="tok-p">,</span><span class="tok-n">i</span><span class="tok-p">)</span>
+   <span class="tok-n">val</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">remfunc</span><span class="tok-p">(</span><span class="tok-n">database</span><span class="tok-p">,</span><span class="tok-s2">&quot;get&quot;</span><span class="tok-p">,</span><span class="tok-n">i</span><span class="tok-p">)</span>
    <span class="tok-n">elapsed</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">since</span><span class="tok-p">(</span><span class="tok-n">ts</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: entry %u is &#39;%s&#39; (retrieved in %.6f s)&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-n">val</span><span class="tok-p">,</span> <span class="tok-n">elapsed</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: entry %u is &#39;%s&#39; (retrieved in %.6f s)&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-n">val</span><span class="tok-p">,</span> <span class="tok-n">elapsed</span><span class="tok-p">)</span>
 
    <span class="tok-c1">-- exit the LunaSDL application</span>
    <span class="tok-nb">os.exit</span><span class="tok-p">(</span><span class="tok-kc">true</span><span class="tok-p">,</span><span class="tok-kc">true</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-k">function</span> <span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-p">)</span>  <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Idle&quot;</span><span class="tok-p">)</span> <span class="tok-k">end</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Idle&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">START&quot;</span><span class="tok-p">,</span><span class="tok-n">Start</span><span class="tok-p">)</span></code></pre>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-kr">function</span> <span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-p">)</span>  <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;Idle&quot;</span><span class="tok-p">)</span> <span class="tok-kr">end</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Idle&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;START&quot;</span><span class="tok-p">,</span><span class="tok-n">Start</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -3143,33 +3149,33 @@ priorities to itself. Just to see their order of arrival.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- Main script: main.lua</span>
-<span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">lunasdl&quot;</span><span class="tok-p">)</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- Main script: main.lua</span>
+<span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;lunasdl&quot;</span><span class="tok-p">)</span>
 
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logopen</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">example.log&quot;</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logopen</span><span class="tok-p">(</span><span class="tok-s2">&quot;example.log&quot;</span><span class="tok-p">)</span>
 <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">traceson</span><span class="tok-p">()</span>
 
 <span class="tok-c1">-- set the number of priority levels:</span>
 <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">prioritylevels</span><span class="tok-p">(</span><span class="tok-mi">3</span><span class="tok-p">)</span>
 
-<span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">system&quot;</span><span class="tok-p">))</span></code></pre>
+<span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span><span class="tok-s2">&quot;system&quot;</span><span class="tok-p">))</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- System agent: system.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- System agent: system.lua</span>
 
-<span class="tok-kd">local</span> <span class="tok-k">function</span> <span class="tok-nf">Send</span><span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-p">)</span>
+<span class="tok-kd">local</span> <span class="tok-kr">function</span> <span class="tok-nf">Send</span><span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-p">)</span>
 <span class="tok-c1">-- if n=nil, self-sends a signal named &#39;NORMAL&#39; without priority</span>
 <span class="tok-c1">-- otherwise self-sends a signal named &#39;LEVELn&#39;, with priority n</span>
-   <span class="tok-k">if</span> <span class="tok-ow">not</span> <span class="tok-n">n</span> <span class="tok-k">then</span>
-      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-nb">string.format</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">NORMAL&quot;</span><span class="tok-p">)</span> <span class="tok-p">},</span> <span class="tok-n">self_</span><span class="tok-p">)</span>
-   <span class="tok-k">else</span>
-      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-nb">string.format</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">LEVEL%u&quot;</span><span class="tok-p">,</span><span class="tok-n">n</span><span class="tok-p">)</span> <span class="tok-p">},</span> <span class="tok-n">self_</span><span class="tok-p">,</span> <span class="tok-n">n</span><span class="tok-p">)</span>
-   <span class="tok-k">end</span>
-<span class="tok-k">end</span>
+   <span class="tok-kr">if</span> <span class="tok-ow">not</span> <span class="tok-n">n</span> <span class="tok-kr">then</span>
+      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-nb">string.format</span><span class="tok-p">(</span><span class="tok-s2">&quot;NORMAL&quot;</span><span class="tok-p">)</span> <span class="tok-p">},</span> <span class="tok-n">self_</span><span class="tok-p">)</span>
+   <span class="tok-kr">else</span>
+      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-nb">string.format</span><span class="tok-p">(</span><span class="tok-s2">&quot;LEVEL%u&quot;</span><span class="tok-p">,</span><span class="tok-n">n</span><span class="tok-p">)</span> <span class="tok-p">},</span> <span class="tok-n">self_</span><span class="tok-p">,</span> <span class="tok-n">n</span><span class="tok-p">)</span>
+   <span class="tok-kr">end</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Start</span><span class="tok-p">()</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Start</span><span class="tok-p">()</span>
    <span class="tok-c1">-- send a few signal with different priorities to self</span>
 
    <span class="tok-c1">-- this has no priority (i.e. lower than lowest priority):</span>
@@ -3192,23 +3198,23 @@ priorities to itself. Just to see their order of arrival.</p>
    <span class="tok-c1">-- finally, this also has no priority, and since signals with</span>
    <span class="tok-c1">-- the same priority are dispatched first-in-first-out, it</span>
    <span class="tok-c1">-- should arrive last:</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">STOP&quot;</span> <span class="tok-p">},</span> <span class="tok-n">self_</span> <span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;STOP&quot;</span> <span class="tok-p">},</span> <span class="tok-n">self_</span> <span class="tok-p">)</span>
 
    <span class="tok-c1">-- summarizing, the order of arrival should be the following:</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">expected order of arrival:&quot;</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">LEVEL1, LEVEL6, LEVEL2, LEVEL3, NORMAL, LEVEL5, LEVEL4, STOP&quot;</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;expected order of arrival:&quot;</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;LEVEL1, LEVEL6, LEVEL2, LEVEL3, NORMAL, LEVEL5, LEVEL4, STOP&quot;</span><span class="tok-p">)</span>
 
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Active&quot;</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;Active&quot;</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Recvd</span><span class="tok-p">()</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">received %s&quot;</span><span class="tok-p">,</span><span class="tok-n">signame_</span><span class="tok-p">)</span> <span class="tok-k">end</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Recvd</span><span class="tok-p">()</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;received %s&quot;</span><span class="tok-p">,</span><span class="tok-n">signame_</span><span class="tok-p">)</span> <span class="tok-kr">end</span>
 
 <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-n">Start</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">*&quot;</span><span class="tok-p">,</span> <span class="tok-n">Recvd</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">STOP&quot;</span><span class="tok-p">,</span> <span class="tok-k">function</span> <span class="tok-p">()</span> <span class="tok-n">Recvd</span><span class="tok-p">()</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">()</span> <span class="tok-k">end</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;*&quot;</span><span class="tok-p">,</span> <span class="tok-n">Recvd</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;STOP&quot;</span><span class="tok-p">,</span> <span class="tok-kr">function</span> <span class="tok-p">()</span> <span class="tok-n">Recvd</span><span class="tok-p">()</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">()</span> <span class="tok-kr">end</span><span class="tok-p">)</span>
 
 <span class="tok-c1">-- set the priority of &#39;LEVEL6&#39; input signals to 1 (i.e. highest priority):</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">priorityinput</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">LEVEL6&quot;</span><span class="tok-p">,</span><span class="tok-mi">1</span><span class="tok-p">)</span></code></pre>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">priorityinput</span><span class="tok-p">(</span><span class="tok-s2">&quot;LEVEL6&quot;</span><span class="tok-p">,</span><span class="tok-mi">1</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -3236,131 +3242,131 @@ receives other signals newly sent to it by the system agent.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- Main script: main.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- Main script: main.lua</span>
 
-<span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">lunasdl&quot;</span><span class="tok-p">)</span>
+<span class="tok-kd">local</span> <span class="tok-n">sdl</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;lunasdl&quot;</span><span class="tok-p">)</span>
 
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logopen</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">example.log&quot;</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">logopen</span><span class="tok-p">(</span><span class="tok-s2">&quot;example.log&quot;</span><span class="tok-p">)</span>
 <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">traceson</span><span class="tok-p">()</span>
 
-<span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">System&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">system&quot;</span><span class="tok-p">))</span></code></pre>
+<span class="tok-nb">assert</span><span class="tok-p">(</span><span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">createsystem</span><span class="tok-p">(</span><span class="tok-s2">&quot;System&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;system&quot;</span><span class="tok-p">))</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- System agent script: system.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- System agent script: system.lua</span>
 
 <span class="tok-kd">local</span> <span class="tok-n">caller</span> <span class="tok-c1">-- caller agent&#39;s pid</span>
-<span class="tok-kd">local</span> <span class="tok-n">T1</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">timer</span><span class="tok-p">(</span><span class="tok-mi">1</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">T1&quot;</span><span class="tok-p">)</span>
+<span class="tok-kd">local</span> <span class="tok-n">T1</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">timer</span><span class="tok-p">(</span><span class="tok-mi">1</span><span class="tok-p">,</span><span class="tok-s2">&quot;T1&quot;</span><span class="tok-p">)</span>
 <span class="tok-kd">local</span> <span class="tok-n">cnt</span> <span class="tok-o">=</span> <span class="tok-mi">0</span>
 
 <span class="tok-kd">local</span> <span class="tok-n">lyrics</span> <span class="tok-o">=</span> <span class="tok-p">{</span>
-   <span class="tok-s2">&quot;</span><span class="tok-s">Softly glowing, watch the river flowing&quot;</span><span class="tok-p">,</span>
-   <span class="tok-s2">&quot;</span><span class="tok-s">It&#39;s reflections shine into my eyes&quot;</span><span class="tok-p">,</span>
-   <span class="tok-s2">&quot;</span><span class="tok-s">I see clearer when you hold the mirror&quot;</span><span class="tok-p">,</span>
-   <span class="tok-s2">&quot;</span><span class="tok-s">And can reach the stars up in the sky tonight&quot;</span><span class="tok-p">,</span>
-   <span class="tok-s2">&quot;</span><span class="tok-s">(Under the moonlight, dancing in the moonlight)&quot;</span><span class="tok-p">,</span>
-   <span class="tok-s2">&quot;</span><span class="tok-s">All around the universe, you&#39;re looking down&quot;</span><span class="tok-p">,</span>
-   <span class="tok-s2">&quot;</span><span class="tok-s">I know you&#39;re watching over me&quot;</span><span class="tok-p">,</span>
-   <span class="tok-s2">&quot;</span><span class="tok-s">La Luna, is it a mild case of madness?&quot;</span><span class="tok-p">,</span>
-   <span class="tok-s2">&quot;</span><span class="tok-s">(Under the moonlight, underneath the moonlight)&quot;</span><span class="tok-p">,</span>
-   <span class="tok-s2">&quot;</span><span class="tok-s">La Luna, you take me out of the darkness&quot;</span><span class="tok-p">,</span>
-   <span class="tok-s2">&quot;</span><span class="tok-s">(Under the moonlight, dancing in the moonlight)&quot;</span>
+   <span class="tok-s2">&quot;Softly glowing, watch the river flowing&quot;</span><span class="tok-p">,</span>
+   <span class="tok-s2">&quot;It&#39;s reflections shine into my eyes&quot;</span><span class="tok-p">,</span>
+   <span class="tok-s2">&quot;I see clearer when you hold the mirror&quot;</span><span class="tok-p">,</span>
+   <span class="tok-s2">&quot;And can reach the stars up in the sky tonight&quot;</span><span class="tok-p">,</span>
+   <span class="tok-s2">&quot;(Under the moonlight, dancing in the moonlight)&quot;</span><span class="tok-p">,</span>
+   <span class="tok-s2">&quot;All around the universe, you&#39;re looking down&quot;</span><span class="tok-p">,</span>
+   <span class="tok-s2">&quot;I know you&#39;re watching over me&quot;</span><span class="tok-p">,</span>
+   <span class="tok-s2">&quot;La Luna, is it a mild case of madness?&quot;</span><span class="tok-p">,</span>
+   <span class="tok-s2">&quot;(Under the moonlight, underneath the moonlight)&quot;</span><span class="tok-p">,</span>
+   <span class="tok-s2">&quot;La Luna, you take me out of the darkness&quot;</span><span class="tok-p">,</span>
+   <span class="tok-s2">&quot;(Under the moonlight, dancing in the moonlight)&quot;</span>
 <span class="tok-p">}</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Active_T1</span><span class="tok-p">()</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Active_T1</span><span class="tok-p">()</span>
    <span class="tok-n">cnt</span> <span class="tok-o">=</span> <span class="tok-n">cnt</span><span class="tok-o">+</span><span class="tok-mi">1</span>
    <span class="tok-kd">local</span> <span class="tok-n">v</span> <span class="tok-o">=</span> <span class="tok-n">lyrics</span><span class="tok-p">[</span><span class="tok-n">cnt</span><span class="tok-p">]</span>
-   <span class="tok-k">if</span> <span class="tok-n">v</span> <span class="tok-k">then</span>
-      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">VERSE&quot;</span><span class="tok-p">,</span> <span class="tok-n">v</span> <span class="tok-p">},</span> <span class="tok-n">caller</span><span class="tok-p">)</span>
+   <span class="tok-kr">if</span> <span class="tok-n">v</span> <span class="tok-kr">then</span>
+      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;VERSE&quot;</span><span class="tok-p">,</span> <span class="tok-n">v</span> <span class="tok-p">},</span> <span class="tok-n">caller</span><span class="tok-p">)</span>
       <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">set</span><span class="tok-p">(</span><span class="tok-n">T1</span><span class="tok-p">)</span>
-   <span class="tok-k">else</span>
-      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">sendat</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">STOP&quot;</span> <span class="tok-p">},</span> <span class="tok-n">caller</span><span class="tok-p">,</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">now</span><span class="tok-p">()</span> <span class="tok-o">+</span> <span class="tok-mi">2</span><span class="tok-p">)</span>
-      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: stopping&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">)</span>
+   <span class="tok-kr">else</span>
+      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">sendat</span><span class="tok-p">({</span> <span class="tok-s2">&quot;STOP&quot;</span> <span class="tok-p">},</span> <span class="tok-n">caller</span><span class="tok-p">,</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">now</span><span class="tok-p">()</span> <span class="tok-o">+</span> <span class="tok-mi">2</span><span class="tok-p">)</span>
+      <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: stopping&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">)</span>
       <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">()</span>
-   <span class="tok-k">end</span>
-<span class="tok-k">end</span>
+   <span class="tok-kr">end</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Start</span><span class="tok-p">()</span>
-   <span class="tok-n">caller</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Caller&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">caller&quot;</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">START&quot;</span> <span class="tok-p">},</span> <span class="tok-n">caller</span><span class="tok-p">)</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Start</span><span class="tok-p">()</span>
+   <span class="tok-n">caller</span> <span class="tok-o">=</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;Caller&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;caller&quot;</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;START&quot;</span> <span class="tok-p">},</span> <span class="tok-n">caller</span><span class="tok-p">)</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">set</span><span class="tok-p">(</span><span class="tok-n">T1</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Active&quot;</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;Active&quot;</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
 
 <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-n">Start</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">T1&quot;</span><span class="tok-p">,</span><span class="tok-n">Active_T1</span><span class="tok-p">)</span></code></pre>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;T1&quot;</span><span class="tok-p">,</span><span class="tok-n">Active_T1</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- Agent script: caller.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- Agent script: caller.lua</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">AtReturn</span><span class="tok-p">(</span><span class="tok-o">...</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">AtReturn(%s)&quot;</span><span class="tok-p">,</span><span class="tok-nb">table.concat</span><span class="tok-p">({</span><span class="tok-o">...</span><span class="tok-p">},</span><span class="tok-s2">&quot;</span><span class="tok-s">,&quot;</span><span class="tok-p">))</span>
+<span class="tok-kr">function</span> <span class="tok-nf">AtReturn</span><span class="tok-p">(...)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;AtReturn(%s)&quot;</span><span class="tok-p">,</span><span class="tok-nb">table.concat</span><span class="tok-p">({...},</span><span class="tok-s2">&quot;,&quot;</span><span class="tok-p">))</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">restore</span><span class="tok-p">()</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Active_Start</span><span class="tok-p">()</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: received %s&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">signame_</span><span class="tok-p">)</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Active_Start</span><span class="tok-p">()</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: received %s&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">signame_</span><span class="tok-p">)</span>
    <span class="tok-c1">-- call the procedure, passing it some parameters</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">procedure</span><span class="tok-p">(</span><span class="tok-n">AtReturn</span><span class="tok-p">,</span> <span class="tok-s2">&quot;</span><span class="tok-s">Procedure&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;</span><span class="tok-s">procedure&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;</span><span class="tok-s">hello&quot;</span><span class="tok-p">,</span><span class="tok-mi">1</span><span class="tok-p">,</span><span class="tok-mi">2</span><span class="tok-p">,</span><span class="tok-mi">3</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">procedure</span><span class="tok-p">(</span><span class="tok-n">AtReturn</span><span class="tok-p">,</span> <span class="tok-s2">&quot;Procedure&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;procedure&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;hello&quot;</span><span class="tok-p">,</span><span class="tok-mi">1</span><span class="tok-p">,</span><span class="tok-mi">2</span><span class="tok-p">,</span><span class="tok-mi">3</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Active_Stop</span><span class="tok-p">()</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: received %s&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">signame_</span><span class="tok-p">)</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Active_Stop</span><span class="tok-p">()</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: received %s&quot;</span><span class="tok-p">,</span> <span class="tok-n">name_</span><span class="tok-p">,</span> <span class="tok-n">signame_</span><span class="tok-p">)</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">stop</span><span class="tok-p">()</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Received</span><span class="tok-p">()</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: received &#39;%s&#39; from %u&quot;</span><span class="tok-p">,</span><span class="tok-n">name_</span><span class="tok-p">,</span><span class="tok-n">signal_</span><span class="tok-p">[</span><span class="tok-mi">2</span><span class="tok-p">],</span><span class="tok-n">sender_</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Received</span><span class="tok-p">()</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: received &#39;%s&#39; from %u&quot;</span><span class="tok-p">,</span><span class="tok-n">name_</span><span class="tok-p">,</span><span class="tok-n">signal_</span><span class="tok-p">[</span><span class="tok-mi">2</span><span class="tok-p">],</span><span class="tok-n">sender_</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Init</span><span class="tok-p">()</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Active&quot;</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Init</span><span class="tok-p">()</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;Active&quot;</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
 <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-n">Init</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">START&quot;</span><span class="tok-p">,</span><span class="tok-n">Active_Start</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">STOP&quot;</span><span class="tok-p">,</span><span class="tok-n">Active_Stop</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">*&quot;</span><span class="tok-p">,</span> <span class="tok-n">Received</span><span class="tok-p">)</span></code></pre>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;START&quot;</span><span class="tok-p">,</span><span class="tok-n">Active_Start</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;STOP&quot;</span><span class="tok-p">,</span><span class="tok-n">Active_Stop</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Active&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;*&quot;</span><span class="tok-p">,</span> <span class="tok-n">Received</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span class="tok-c1">-- Procedure script: procedure.lua</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-c1">-- Procedure script: procedure.lua</span>
 
 <span class="tok-kd">local</span> <span class="tok-n">cnt</span> <span class="tok-o">=</span> <span class="tok-mi">0</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Waiting_Any</span><span class="tok-p">()</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Waiting_Any</span><span class="tok-p">()</span>
    <span class="tok-c1">-- notice that sender_ is not self_ but caller_</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: received &#39;%s&#39; from %u&quot;</span><span class="tok-p">,</span><span class="tok-n">name_</span><span class="tok-p">,</span><span class="tok-n">signal_</span><span class="tok-p">[</span><span class="tok-mi">2</span><span class="tok-p">],</span><span class="tok-n">sender_</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: received &#39;%s&#39; from %u&quot;</span><span class="tok-p">,</span><span class="tok-n">name_</span><span class="tok-p">,</span><span class="tok-n">signal_</span><span class="tok-p">[</span><span class="tok-mi">2</span><span class="tok-p">],</span><span class="tok-n">sender_</span><span class="tok-p">)</span>
    <span class="tok-n">cnt</span> <span class="tok-o">=</span> <span class="tok-n">cnt</span> <span class="tok-o">+</span><span class="tok-mi">1</span>
    <span class="tok-c1">-- save the signal for the caller:</span>
    <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">save</span><span class="tok-p">()</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">end</span>
 
-<span class="tok-k">function</span> <span class="tok-nf">Waiting_Return</span><span class="tok-p">()</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: received %s from %u&quot;</span><span class="tok-p">,</span><span class="tok-n">name_</span><span class="tok-p">,</span><span class="tok-n">signame_</span><span class="tok-p">,</span><span class="tok-n">sender_</span><span class="tok-p">)</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Waiting_Return</span><span class="tok-p">()</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: received %s from %u&quot;</span><span class="tok-p">,</span><span class="tok-n">name_</span><span class="tok-p">,</span><span class="tok-n">signame_</span><span class="tok-p">,</span><span class="tok-n">sender_</span><span class="tok-p">)</span>
    <span class="tok-c1">-- return from procedure, with return values:</span>
-   <span class="tok-k">return</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">procreturn</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">received verses&quot;</span><span class="tok-p">,</span><span class="tok-n">cnt</span><span class="tok-p">)</span>
+   <span class="tok-kr">return</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">procreturn</span><span class="tok-p">(</span><span class="tok-s2">&quot;received verses&quot;</span><span class="tok-p">,</span><span class="tok-n">cnt</span><span class="tok-p">)</span>
    <span class="tok-c1">-- no code after sdl.procreturn()</span>
-<span class="tok-k">end</span>
+<span class="tok-kr">end</span>
 
 
-<span class="tok-k">function</span> <span class="tok-nf">Init</span><span class="tok-p">(</span><span class="tok-o">...</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">%s: Init(%s)&quot;</span><span class="tok-p">,</span><span class="tok-n">name_</span><span class="tok-p">,</span><span class="tok-nb">table.concat</span><span class="tok-p">({</span><span class="tok-o">...</span><span class="tok-p">},</span><span class="tok-s2">&quot;</span><span class="tok-s">,&quot;</span><span class="tok-p">))</span>
+<span class="tok-kr">function</span> <span class="tok-nf">Init</span><span class="tok-p">(...)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s2">&quot;%s: Init(%s)&quot;</span><span class="tok-p">,</span><span class="tok-n">name_</span><span class="tok-p">,</span><span class="tok-nb">table.concat</span><span class="tok-p">({...},</span><span class="tok-s2">&quot;,&quot;</span><span class="tok-p">))</span>
    <span class="tok-c1">-- time-triggered signals are handy in procedures because procedures</span>
    <span class="tok-c1">-- can not create timers...</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">sendat</span><span class="tok-p">({</span> <span class="tok-s2">&quot;</span><span class="tok-s">RETURN&quot;</span> <span class="tok-p">},</span> <span class="tok-n">self_</span><span class="tok-p">,</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">now</span><span class="tok-p">()</span> <span class="tok-o">+</span> <span class="tok-mi">5</span><span class="tok-p">)</span>
-   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Waiting&quot;</span><span class="tok-p">)</span>
-<span class="tok-k">end</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">sendat</span><span class="tok-p">({</span> <span class="tok-s2">&quot;RETURN&quot;</span> <span class="tok-p">},</span> <span class="tok-n">self_</span><span class="tok-p">,</span> <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">now</span><span class="tok-p">()</span> <span class="tok-o">+</span> <span class="tok-mi">5</span><span class="tok-p">)</span>
+   <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">nextstate</span><span class="tok-p">(</span><span class="tok-s2">&quot;Waiting&quot;</span><span class="tok-p">)</span>
+<span class="tok-kr">end</span>
 
 
 <span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">start</span><span class="tok-p">(</span><span class="tok-n">Init</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Waiting&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">RETURN&quot;</span><span class="tok-p">,</span><span class="tok-n">Waiting_Return</span><span class="tok-p">)</span>
-<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;</span><span class="tok-s">Waiting&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;</span><span class="tok-s">*&quot;</span><span class="tok-p">,</span><span class="tok-n">Waiting_Any</span><span class="tok-p">)</span></code></pre>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Waiting&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;RETURN&quot;</span><span class="tok-p">,</span><span class="tok-n">Waiting_Return</span><span class="tok-p">)</span>
+<span class="tok-n">sdl</span><span class="tok-p">.</span><span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Waiting&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;*&quot;</span><span class="tok-p">,</span><span class="tok-n">Waiting_Any</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -3963,7 +3969,7 @@ functions when an error occurs is to call Lua&#8217;s
 <div id="footer">
 <div id="footer-text">
 Version 0.2<br>
-Last updated 2015-07-18 13:45:16 CEST
+Last updated 2017-08-09 20:11:15 CEST
 </div>
 </div>
 </body>

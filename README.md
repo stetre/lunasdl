@@ -1,5 +1,11 @@
 ## LunaSDL: SDL-oriented concurrency in Lua
 
+
+_*** This project is discontinued, superseded by
+[MoonAgents](https://github.com/stetre/moonagents). ***_
+
+---
+
 LunaSDL is a Lua module for event-driven concurrent programming, whose design
 follows the concurrency model of the
 [ITU-T Specification and Description Language (SDL)](http://en.wikipedia.org/wiki/Specification_and_Description_Language).
